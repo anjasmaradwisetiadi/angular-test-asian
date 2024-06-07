@@ -1,4 +1,4 @@
-const dataLimit = [
+export const dataDummyEmployeeLimit = [
   {
     user_name: "jdoe1",
     first_name: "John",
@@ -110,7 +110,8 @@ const dataLimit = [
     description: "Amy is a product manager."
   },
 ]
-const data = [
+
+export const dataDummyEmployee = [
     {
       user_name: "jdoe1",
       first_name: "John",
@@ -1213,4 +1214,3 @@ const data = [
       }
   ];
   
-  console.log(data);

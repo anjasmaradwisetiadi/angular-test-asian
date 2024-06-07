@@ -3,6 +3,7 @@ import { dataUser } from 'src/assets/data/dataUser';
 import { AuthService } from './service/authService/auth.service';
 import { ActivatedRoute, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { LoginGuardService } from './service/authService/login-guard.service';
+import { EmployeeServiceService } from './views/employee/employee-service.service';
 import { SubSink } from 'subsink';
 
 @Component({
@@ -15,12 +16,16 @@ export class AppComponent implements OnInit, OnDestroy {
   loginGuard:boolean = false;
   private subs = new SubSink;
 
-  constructor(private authService:AuthService, private loginGuardService:LoginGuardService){
+  constructor(private authService:AuthService, private loginGuardService:LoginGuardService , private employeeService: EmployeeServiceService){
+    //********** */ trigger first time
     this.authService.isAutoLogin();
     this.subs.sink = this.authService.isAuthenticated()
     .subscribe((data)=>{
       this.loginGuard = data
     })
+    //********** */ trigger data first time
+    this.employeeService.actionDataEmployee(0,10);
+
   }
 
   ngOnInit(): void {

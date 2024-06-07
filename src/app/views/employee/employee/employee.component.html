@@ -1,97 +1,145 @@
 <h2>Section title</h2>
-<div>
-  <button type="button" (click)="login()">Login</button>
-  <button type="button" (click)="logout()">Logout</button>
+<div class="row">
+  <div class="col d-flex">
+    <div>
+      <label for="">Username</label>
+      <select class="form-select" aria-label="Default select example">
+        <option value="asc">Asc</option>
+        <option value="desc">Desc</option>
+      </select>
+    </div>
+    <div class="ps-2">
+      <label for="">Email</label>
+      <select class="form-select" aria-label="Default select example">
+        <option value="asc">Asc</option>
+        <option value="desc">Desc</option>
+      </select>
+    </div>
+    <div class="ps-2">
+      <label for="">Group</label>
+      <select class="form-select" aria-label="Default select example">
+        <option value="asc">Asc</option>
+        <option value="desc">Desc</option>
+      </select>
+    </div>
+    <div class="ps-2">
+      <label for="">Status</label>
+      <select class="form-select" aria-label="Default select example">
+        <option value="asc">Asc</option>
+        <option value="desc">Desc</option>
+      </select>
+    </div>
+  </div>
+  <div class="col d-flex justify-content-end">
+    <button type="button" class="btn btn-primary" (click)="applyFilter()">Appply</button>
+    <button type="button" class="btn btn-secondary ms-2" (click)="applyReset()">Reset</button>
+  </div>
 </div>
-<div class="table-responsive">
+<div class="table-responsive mt-4">
   <table class="table table-striped table-sm">
     <thead>
       <tr>
-        <th scope="col">No</th>
-        <th scope="col">Username</th>
-        <th scope="col">Email</th>
-        <th scope="col">Group</th>
-        <th scope="col">Action</th>
+        <th scope="col">
+          <div class="">
+             <h6>No</h6>
+             <div>
+
+             </div>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="">
+            <h6>Username</h6>
+            <div>
+             <input type="text" placeholder="fill...">
+            </div>
+         </div>
+        </th>
+        <th scope="col">
+          <div class="">
+            <h6>Email</h6>
+            <div>
+             <input type="text" placeholder="fill...">
+            </div>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="">
+            <h6>Group</h6>
+            <div>
+             <input type="text" placeholder="fill...">
+            </div>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="">
+            <h6>Status</h6>
+            <div>
+             <input type="text" placeholder="fill...">
+            </div>
+          </div>
+        </th>
+        <th scope="col d-flex justify-content-center text-center" style="text-align: center;">
+          <div class="">
+            <h6>Action</h6>
+            <div>
+
+            </div>
+         </div>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>random</td>
-        <td>data</td>
-        <td>text</td>
-        <td>Action</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>placeholder</td>
-        <td>irrelevant</td>
-        <td>layout</td>
-        <td>Action</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>data</td>
-        <td>rich</td>
-        <td>tabular</td>
-        <td>Action</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>information</td>
-        <td>placeholder</td>
-        <td>data</td>
-        <td>Action</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>text</td>
-        <td>random</td>
-        <td>dashboard</td>
-        <td>Action</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>dashboard</td>
-        <td>irrelevant</td>
-        <td>placeholder</td>
-        <td>Action</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>dashboard</td>
-        <td>illustrative</td>
-        <td>data</td>
-        <td>Action</td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td>placeholder</td>
-        <td>tabular</td>
-        <td>irrelevant</td>
-        <td>Action</td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td>random</td>
-        <td>data</td>
-        <td>text</td>
-        <td>Action</td>
-      </tr>
-      <tr>
-        <td>9</td>
-        <td>placeholder</td>
-        <td>irrelevant</td>
-        <td>layout</td>
-        <td>Action</td>
-      </tr>
-      <tr>
-        <td>10</td>
-        <td>data</td>
-        <td>rich</td>
-        <td>tabular</td>
-        <td>Action</td>
+      <tr
+        *ngFor="let data of dataEmployee; index as index"
+      >
+        <td>{{index+1}}</td>
+        <td>{{data.user_name}}</td>
+        <td>{{data.email}}</td>
+        <td>{{data.status}}</td>
+        <td>{{data.basic_salary}}</td>
+        <td class="d-flex justify-content-center text-center">
+          <div class="d-flex justify-center"> 
+            <a role="button" (click)="onDetail()"> 
+              <span class="material-icons-outlined text-success">
+                visibility
+              </span>
+            </a>
+            <a role="button" class="ps-3" (click)="onEdit()"> 
+              <span class="material-icons-outlined text-warning">
+                edit
+              </span>
+            </a>
+            <a role="button" class="ps-3" (click)="onDelete()"> 
+              <span class="material-icons-outlined text-danger">
+                delete
+              </span>
+            </a>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
+</div>
+<!--********** it need seoarate to component pagination -->
+<div class="mt-2 d-flex justify-start">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li 
+        *ngFor="let data of lengthPagination"
+        class="page-item">
+        <a class="page-link" href="#">{{data}}</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 </div>
