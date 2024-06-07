@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
     "dayjs": "^1.11.11",
+    "sweetalert2": "^11.10.8",
     "material-icons": "^1.13.12",
     "rxjs": "~7.5.0",
     "subsink": "^1.0.2",

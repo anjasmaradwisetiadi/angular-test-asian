@@ -5,6 +5,9 @@ import { environment } from 'src/environments/environment';
 // import { authResponse } from '../interface/authInterface';
 import { Router } from '@angular/router';
 import { dataUserInterface } from '../../interface/authInterface';
+import { LoadingService } from '../loading.service';
+import Swal from 'sweetalert2';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +16,7 @@ export class AuthService {
   conditionLogin = false;
   loggedIn = false
   conditionLoginSubject = new BehaviorSubject<boolean>(this.conditionLogin);
-  constructor( private http:HttpClient, private router:Router) { 
+  constructor( private http:HttpClient, private router:Router, private loading: LoadingService) { 
 
   }
 
@@ -21,25 +24,40 @@ export class AuthService {
     return this.conditionLoginSubject.asObservable()
   }
 
-
-  async isLogin(email: string, password:string){
+  async isLogin(data:any){  
+    this.loading.conditionLoading(true);
     const payload = {
-      email:  email,
-      password: password
+      email:  data.value.email,
+      password: data.value.password
     }
     await firstValueFrom(this.http.post(environment.base_url + 'login', payload))
       .then((value:any)=>{
         if(value.status){
           localStorage.setItem('user',JSON.stringify(value.data))
           this.conditionLoginSubject.next(true);
-          this.router.navigate(['/dashboard'])
+          Swal.fire({
+            title: "Success",
+            text: "Successfull Login",
+            icon: "success"
+          }).then((confirm)=>{
+            if(confirm){
+              this.router.navigate(['/dashboard'])
+            }
+          });
         } else {
+          Swal.fire({
+            title: "Unsuccessfull",
+            text: value.message,
+            icon: "error"
+          })
           this.conditionLoginSubject.next(false);
         }
+        this.loading.conditionLoading(false);
       })
       .catch((error)=>{
         console.log('error = ');
         console.log(error);
+        this.loading.conditionLoading(false);
       })
   }
   
@@ -54,6 +72,7 @@ export class AuthService {
   }
 
   isLogout(){
+    localStorage.removeItem('user'); 
     this.conditionLoginSubject.next(false);
     this.router.navigate(['/login'])
   }
