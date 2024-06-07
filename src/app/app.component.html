@@ -1,0 +1,18 @@
+<!-- ************ sign in app -->
+<app-navbar></app-navbar>
+<div
+  *ngIf="!loginGuard"
+  class="container-fluid">
+  <router-outlet></router-outlet>
+</div>
+
+<div
+ *ngIf="loginGuard"
+  class="container-fluid">
+  <div class="row">
+    <app-sidenavbar></app-sidenavbar>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
