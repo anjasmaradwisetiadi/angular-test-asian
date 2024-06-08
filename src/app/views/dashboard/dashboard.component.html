@@ -1,1 +1,39 @@
-<p>dashboard works!</p>
+<div class="w-full mt-4">
+    <div class="d-flex justify-content-center">
+        <img src="../../../assets/image/user_1.png" alt="" style="width: 14rem;">
+    </div>
+    <div class="mt-2 d-flex justify-content-center">
+        <h4> Welcome {{profile?.user_name}}</h4>
+    </div>
+    <div class="mt-4">
+        <div>
+            <h6>My Profile</h6>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col-2">
+                    Name
+                </div>
+                <div class="col-10">
+                    : {{profile?.name}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    Email 
+                </div>
+                <div class="col-10">
+                    : {{profile?.email}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    Position
+                </div>
+                <div class="col-10">
+                    : {{profile?.position}} 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
