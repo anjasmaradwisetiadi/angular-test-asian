@@ -11,13 +11,13 @@ const routes: Routes = [
     data: {},
   },
   {
-    path: ':id',
-    component: DetailEmployeeComponent,
+    path: 'create',
+    component: CreateEmployeeComponent,
     data: {},
   },
   {
-    path: 'create',
-    component: CreateEmployeeComponent,
+    path: 'detail/:id',
+    component: DetailEmployeeComponent,
     data: {},
   },
   {

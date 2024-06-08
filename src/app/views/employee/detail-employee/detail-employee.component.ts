@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeServiceService } from '../employee-service.service';
 import { dataEmployeeInterface } from 'src/app/interface/employee-interface';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-detail-employee',
@@ -10,7 +11,12 @@ import { dataEmployeeInterface } from 'src/app/interface/employee-interface';
 })
 export class DetailEmployeeComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute ,private employeeService: EmployeeServiceService) { 
+  constructor(
+      private router: Router, 
+      private route: ActivatedRoute,
+      private employeeService: EmployeeServiceService,
+      private location:Location
+  ) { 
   }
 
   detailEmployee:dataEmployeeInterface = {
@@ -31,5 +37,15 @@ export class DetailEmployeeComponent implements OnInit {
     this.detailEmployee = this.employeeService.getDetailEmployee(paramId)   
   }
 
+  onEdit(){
+    console.log('on Edit');
+  }
+
+  onDelete(){
+    console.log('on Delete');
+  }
+  onBack(){
+    this.location.back();
+  }
 
 }
