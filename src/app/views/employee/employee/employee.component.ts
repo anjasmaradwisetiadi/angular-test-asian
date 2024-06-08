@@ -1,7 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from 'src/app/service/authService/auth.service';
-import { AuthGuardService } from 'src/app/service/authService/auth-guard.service';
 import { dataUser } from 'src/assets/data/dataUser';
+import {   
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  Router,
+  UrlTree,
+} from '@angular/router';
 import { dataEmployeeInterface } from 'src/app/interface/employee-interface';
 import { EmployeeServiceService } from '../employee-service.service';
 import { SubSink } from 'subsink';
@@ -13,7 +18,7 @@ import { SubSink } from 'subsink';
 })
 export class EmployeeComponent implements OnInit, OnDestroy {
 
-  constructor(private employeeService:EmployeeServiceService) { }
+  constructor(private employeeService:EmployeeServiceService, private router: Router) { }
   private subs = new SubSink;
   dataEmployee:dataEmployeeInterface[] = [];
   lengthPagination:[] = [];
@@ -27,13 +32,16 @@ export class EmployeeComponent implements OnInit, OnDestroy {
       this.lengthPagination = data
     })
   }
+  onCreate(){
+    this.router.navigate(['/employee/create'])
+  }
 
   onDetail(){
-    console.log('detail');
+    this.router.navigate(['/employee/45'])
   }
 
   onEdit(){
-    console.log('edit');
+    this.router.navigate(['/employee/edit/45'])
   }
 
   onDelete(){
