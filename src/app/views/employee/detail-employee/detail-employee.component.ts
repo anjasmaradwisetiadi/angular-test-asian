@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeServiceService } from '../employee-service.service';
 import { dataEmployeeInterface } from 'src/app/interface/employee-interface';
 import { Location } from '@angular/common'
+import { utilize } from 'src/app/utilize';
 
 @Component({
   selector: 'app-detail-employee',
@@ -46,6 +47,10 @@ export class DetailEmployeeComponent implements OnInit {
   }
   onBack(){
     this.location.back();
+  }
+
+  transformBasicSalary(data:number){
+    return utilize.formatIDR(data)
   }
 
 }
