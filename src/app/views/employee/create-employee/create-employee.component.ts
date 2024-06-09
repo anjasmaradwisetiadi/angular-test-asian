@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common'
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {FormGroup, FormControl, FormBuilder, Validators,} from '@angular/forms';
 import { dataEmployeeInterface } from 'src/app/interface/employee-interface';
 import { EmployeeServiceService } from '../employee-service.service';
@@ -21,12 +21,10 @@ export class CreateEmployeeComponent implements OnInit {
       private router: Router, 
       private location: Location, 
       private fb: FormBuilder, 
-      private employeeService :EmployeeServiceService 
+      private employeeService :EmployeeServiceService, 
+      private route:ActivatedRoute,
   ) { }
-  range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
-  });
+
   createOrEditEmployee = this.fb.group({
     id: [''],
     user_name: ['', [Validators.required]],
@@ -58,8 +56,31 @@ export class CreateEmployeeComponent implements OnInit {
     'active',
     'inactive'
   ]
+  nameRoute = ''; 
 
   ngOnInit(): void {
+     this.nameRoute = this.route.snapshot.url[0].path;
+     this.editPatchEmployee()
+  }
+
+  editPatchEmployee(){
+    if(this.nameRoute === 'edit'){
+      const idEmployee = this.route.snapshot.params['id'];
+      const dataEmployee = this.employeeService.getDetailEmployee(idEmployee);
+        
+      this.createOrEditEmployee.patchValue({
+        id: dataEmployee.id,
+        user_name: dataEmployee.user_name,
+        first_name: dataEmployee.first_name,
+        last_name: dataEmployee.last_name,
+        email: dataEmployee.email,
+        birth_date: dataEmployee.birth_date,
+        basic_salary: dataEmployee.basic_salary,
+        status: dataEmployee.status,
+        group: dataEmployee.group,
+        description: dataEmployee.description
+      });
+    }
   }
 
   transformBasicSalary($event:Event){
@@ -80,7 +101,7 @@ export class CreateEmployeeComponent implements OnInit {
       status: 'active',
       group: 'C',
       description: 'testing payload'
-      });
+    });
   }
 
   onSubmit(){

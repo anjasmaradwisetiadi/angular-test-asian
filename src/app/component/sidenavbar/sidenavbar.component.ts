@@ -15,12 +15,4 @@ export class SidenavbarComponent implements OnInit {
     this.routeActive = this.location.path();
   }
 
-  redirectPage(data:string){
-    if(data === 'dashboard'){
-      this.router.navigate(['/dashboard'])
-    } else{
-      this.router.navigate(['/employee'])
-    }
-  }
-
 }

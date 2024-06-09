@@ -1,14 +1,14 @@
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
     <div class="position-sticky pt-3">
       <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link " [class]="routeActive === '/dashboard' ? 'active': '' " aria-current="page" (click) = "redirectPage('dashboard')">
+        <li class="nav-item ">
+          <a class="nav-link cursor-pointer" routerLink="/dashboard"  routerLinkActive="active" aria-current="page">
             <span data-feather="home"></span>
             Dashboard
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" [class]="routeActive === '/employee' ? 'active': '' " (click) = "redirectPage('employee')">
+        <li class="nav-item " >
+          <a class="nav-link cursor-pointer" routerLink="/employee"  routerLinkActive="active" aria-current="page">
             <span data-feather="file"></span>
             Employee
           </a>

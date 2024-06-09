@@ -44,7 +44,7 @@ export class DetailEmployeeComponent implements OnInit, OnDestroy {
   }
 
   onEdit(){
-    console.log('data edit = ');
+    this.router.navigate(['/employee/edit/'+id])
   }
 
   onDelete(){

@@ -43,8 +43,8 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     this.router.navigate(['/employee/detail/'+id])
   }
 
-  onEdit(){
-    this.router.navigate(['/employee/edit/45'])
+  onEdit(id:string){
+    this.router.navigate(['/employee/edit/'+id])
   }
 
   onDelete(id: string){
