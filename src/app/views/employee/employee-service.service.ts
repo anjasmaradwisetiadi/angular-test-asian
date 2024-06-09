@@ -35,6 +35,18 @@ export class EmployeeServiceService {
     }
   }
 
+  deleteEmployee(id: string){
+    let indexDelete = 0;
+    dataDummyEmployeeLimit.forEach((data:dataEmployeeInterface, index:number)=>{
+      if (data.id === id){
+        indexDelete = index
+      } 
+    })
+    dataDummyEmployeeLimit.splice(indexDelete,1);
+    this.dataEmployeeAll = dataDummyEmployeeLimit; 
+    this.actionDataEmployee(0,10);
+  }
+
   getDetailEmployee(id: string){
     this.detailEmployee = this.dataEmployeeAll.filter((data:dataEmployeeInterface)=>{
       return data.id === id;

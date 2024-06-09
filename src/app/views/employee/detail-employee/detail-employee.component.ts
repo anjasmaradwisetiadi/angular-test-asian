@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeServiceService } from '../employee-service.service';
 import { dataEmployeeInterface } from 'src/app/interface/employee-interface';
 import { Location } from '@angular/common'
 import { utilize } from 'src/app/utilize';
+import Swal from 'sweetalert2';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-detail-employee',
   templateUrl: './detail-employee.component.html',
   styleUrls: ['./detail-employee.component.css']
 })
-export class DetailEmployeeComponent implements OnInit {
+export class DetailEmployeeComponent implements OnInit, OnDestroy {
+  private subs = new SubSink;
 
   constructor(
       private router: Router, 
@@ -33,17 +36,38 @@ export class DetailEmployeeComponent implements OnInit {
     description: ""
   };
 
+  paramIdEmployee = ''
+
   ngOnInit(): void {
-    const paramId = this.route.snapshot.params['id'];
-    this.detailEmployee = this.employeeService.getDetailEmployee(paramId)   
+    this.paramIdEmployee = this.route.snapshot.params['id'];
+    this.detailEmployee = this.employeeService.getDetailEmployee(this.paramIdEmployee)   
   }
 
   onEdit(){
-    console.log('on Edit');
+    console.log('data edit = ');
   }
 
   onDelete(){
-    console.log('on Delete');
+    Swal.fire({
+      title: "Are you sure delete data?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) =>{
+      if (result.isConfirmed) {
+        this.employeeService.deleteEmployee(this.paramIdEmployee);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your data has been deleted.",
+          icon: "success"
+        }).then((result)=>{
+          if(result.isConfirmed){
+            this.router.navigate(['/employee'])
+          }
+        })
+      }
+    })
   }
   onBack(){
     this.location.back();
@@ -53,4 +77,7 @@ export class DetailEmployeeComponent implements OnInit {
     return utilize.formatIDR(data)
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 }

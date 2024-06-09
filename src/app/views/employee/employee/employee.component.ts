@@ -11,6 +11,7 @@ import { dataEmployeeInterface } from 'src/app/interface/employee-interface';
 import { EmployeeServiceService } from '../employee-service.service';
 import { SubSink } from 'subsink';
 import { Location } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-employee',
@@ -46,8 +47,26 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     this.router.navigate(['/employee/edit/45'])
   }
 
-  onDelete(){
-    console.log('delete');
+  onDelete(id: string){
+    Swal.fire({
+      title: "Are you sure delete data?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) =>{
+      if (result.isConfirmed) {
+        this.employeeService.deleteEmployee(id);
+        this.subs.sink = this.employeeService.getDataEmployee().subscribe((data: dataEmployeeInterface[])=>{
+          this.dataEmployee=data
+        })
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your data has been deleted.",
+          icon: "success"
+        });
+      }
+    })
   }
 
   applyFilter(){
