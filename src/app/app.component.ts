@@ -23,8 +23,6 @@ export class AppComponent implements OnInit, OnDestroy {
     .subscribe((data)=>{
       this.loginGuard = data
     })
-    //********** */ trigger data first time
-    this.employeeService.actionDataEmployee(0,10);
 
   }
 

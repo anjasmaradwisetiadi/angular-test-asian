@@ -3,6 +3,8 @@ import { Location } from '@angular/common'
 import { Router } from '@angular/router';
 import {FormGroup, FormControl, FormBuilder, Validators,} from '@angular/forms';
 import { dataEmployeeInterface } from 'src/app/interface/employee-interface';
+import { EmployeeServiceService } from '../employee-service.service';
+import Swal from 'sweetalert2';
 
 const today = new Date();
 const month = today.getMonth();
@@ -15,7 +17,12 @@ const year = today.getFullYear();
 })
 export class CreateEmployeeComponent implements OnInit {
   
-  constructor( private router: Router, private location: Location, private fb: FormBuilder  ) { }
+  constructor( 
+      private router: Router, 
+      private location: Location, 
+      private fb: FormBuilder, 
+      private employeeService :EmployeeServiceService 
+  ) { }
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
@@ -77,13 +84,25 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   onSubmit(){
+    const timestampId = new Date().getTime();
     this.createOrEditEmployee.patchValue({
-      id:'45',
+      id:String(timestampId),
       birth_date: '644561967'
     })
     const dataEmployee =  this.createOrEditEmployee;
-    console.log('dataEmployee = ');
-    console.log(dataEmployee);
+    let employeeSave = this.employeeService.addEmployee('add', dataEmployee.value);
+    
+    if(employeeSave){
+      Swal.fire({
+        title: "Success",
+        text: "Successfull save data",
+        icon: "success"
+      }).then((confirm)=>{
+        if(confirm){
+          this.router.navigate([`/employee`])
+        }
+      });
+    }
   }
 
   onCancel(){

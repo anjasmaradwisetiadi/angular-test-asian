@@ -61,23 +61,20 @@
           <div class="form-group">
             <label class="col-form-label" for="inputSuccess">
               <i class="fas fa-check"></i> Birth Date </label>
-              <input id="startDate" class="form-control" type="date" formControlName="birth_date" />
+              <!--********** masih ada masalah ketika menggunakan mat datepicker -->
+              <mat-form-field appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
               <div 
               *ngIf="createOrEditEmployee.controls['birth_date'].invalid && (createOrEditEmployee.controls['birth_date'].touched || createOrEditEmployee.controls['birth_date'].dirty)"
               class="invalid-feedback d-block">
                   Please fill a birth date.
               </div>
           </div>
-          <!--********** masih ada masalah ketika menggunakan mat datepicker -->
-          <!-- <div>
-            <mat-form-field appearance="fill">
-              <mat-label>Choose a date</mat-label>
-              <input matInput [matDatepicker]="picker">
-              <mat-hint>MM/DD/YYYY</mat-hint>
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div> -->
           <div class="row">
             <div class="col-sm-4">
               <div class="form-group">

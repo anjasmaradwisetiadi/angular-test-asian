@@ -17,7 +17,7 @@ export class EmployeeServiceService {
 
   actionDataEmployee(start:number = 0, end:number = 10){
     this.dataEmployee.next(this.dataEmployeeAll.slice(start,end));
-    this.actionPaginationEmployee()
+    this.actionPaginationEmployee();
   } 
 
   actionPaginationEmployee(){
@@ -26,11 +26,20 @@ export class EmployeeServiceService {
     this.paginationEmployee.next(parseNumberToArray)
   }
 
+  addEmployee(from:string, payload:any) {
+    if(from === 'add'){
+      return dataDummyEmployeeLimit.unshift(payload);
+    } else {
+      console.log('edit');
+      return []
+    }
+  }
+
   getDetailEmployee(id: string){
     this.detailEmployee = this.dataEmployeeAll.filter((data:dataEmployeeInterface)=>{
       return data.id === id;
     })
-    return this.detailEmployee[0]
+    return this.detailEmployee[0];
   }
 
   getDataEmployee(){

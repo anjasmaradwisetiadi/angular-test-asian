@@ -2,13 +2,13 @@
     <div class="position-sticky pt-3">
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link " [class]="routeActive === '/dashboard' ? 'active': '' " aria-current="page" href="/dashboard">
+          <a class="nav-link " [class]="routeActive === '/dashboard' ? 'active': '' " aria-current="page" (click) = "redirectPage('dashboard')">
             <span data-feather="home"></span>
             Dashboard
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [class]="routeActive === '/employee' ? 'active': '' " href="/employee">
+          <a class="nav-link" [class]="routeActive === '/employee' ? 'active': '' " (click) = "redirectPage('employee')">
             <span data-feather="file"></span>
             Employee
           </a>
