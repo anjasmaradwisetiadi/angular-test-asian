@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { EmployeeRoutingModule } from './employee-routing.module';
 import { EmployeeComponent } from './employee/employee.component';
@@ -10,7 +11,6 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatNativeDateModule} from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -51,10 +51,12 @@ const MAT_MODULES = [
   imports: [
     CommonModule,
     EmployeeRoutingModule,
+    FormsModule, 
+    ReactiveFormsModule,
     ...MAT_MODULES
   ],
   providers:[
-    provideAnimations(),
+    // provideAnimations(),
   ]
 })
 export class EmployeeModule { }

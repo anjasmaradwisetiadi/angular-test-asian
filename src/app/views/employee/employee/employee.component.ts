@@ -10,6 +10,7 @@ import {
 import { dataEmployeeInterface } from 'src/app/interface/employee-interface';
 import { EmployeeServiceService } from '../employee-service.service';
 import { SubSink } from 'subsink';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-employee',
@@ -18,7 +19,7 @@ import { SubSink } from 'subsink';
 })
 export class EmployeeComponent implements OnInit, OnDestroy {
 
-  constructor(private employeeService:EmployeeServiceService, private router: Router) { }
+  constructor(private employeeService:EmployeeServiceService, private router: Router, private location:Location) { }
   private subs = new SubSink;
   dataEmployee:dataEmployeeInterface[] = [];
   lengthPagination:[] = [];

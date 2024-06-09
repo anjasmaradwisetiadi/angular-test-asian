@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   disabledButton = false;
   private subs = new SubSink;
   loginForm = this.fb.group({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required)
+    email: ['',[Validators.required, Validators.email]],
+    password: ['', [Validators.required]]
   })
 
   ngOnInit(): void {
