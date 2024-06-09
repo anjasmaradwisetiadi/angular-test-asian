@@ -30,8 +30,14 @@ export class EmployeeServiceService {
     if(from === 'add'){
       return dataDummyEmployeeLimit.unshift(payload);
     } else {
-      console.log('edit');
-      return []
+      let indexEdit = 0;
+      dataDummyEmployeeLimit.forEach((data:dataEmployeeInterface, index:number)=>{
+        if (data.id === payload.id){
+          indexEdit = index
+        } 
+      })
+      dataDummyEmployeeLimit[indexEdit] = payload;
+      return [payload]
     }
   }
 

@@ -4,7 +4,7 @@ export interface dataEmployeeInterface{
     first_name: string,
     last_name: string,
     email: string,
-    birth_date: string,
+    birth_date: any,
     basic_salary: number,
     status: string,
     group: string,

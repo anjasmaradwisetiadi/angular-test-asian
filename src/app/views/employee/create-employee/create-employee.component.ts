@@ -5,10 +5,10 @@ import {FormGroup, FormControl, FormBuilder, Validators,} from '@angular/forms';
 import { dataEmployeeInterface } from 'src/app/interface/employee-interface';
 import { EmployeeServiceService } from '../employee-service.service';
 import Swal from 'sweetalert2';
+import * as dayjs from 'dayjs';
+
 
 const today = new Date();
-const month = today.getMonth();
-const year = today.getFullYear();
 
 @Component({
   selector: 'app-create-employee',
@@ -31,7 +31,7 @@ export class CreateEmployeeComponent implements OnInit {
     first_name: ['', [Validators.required]],
     last_name: ['', [Validators.required]],
     email:  ['', [Validators.required, Validators.email]],
-    birth_date: ['', [Validators.required]],
+    birth_date: [''],
     basic_salary: [0, [Validators.required]],
     status: ['', [Validators.required]],
     group: ['', [Validators.required]],
@@ -57,10 +57,33 @@ export class CreateEmployeeComponent implements OnInit {
     'inactive'
   ]
   nameRoute = ''; 
+  // maxDate = new Date(2024, 0, 30);
+  maxDate = new Date();
+  useDate = new Date();
 
   ngOnInit(): void {
      this.nameRoute = this.route.snapshot.url[0].path;
-     this.editPatchEmployee()
+     this.editPatchEmployee();
+  }
+
+  getDateNow(from:string = 'create'){
+    const data = dayjs();
+    const day = Number(data.format('D'));
+    const month = (Number(data.format('M')) - 1);
+    const year = Number(data.format('YYYY')); 
+    this.maxDate = new Date(year, month, day);
+
+    if(from === 'create'){
+      this.useDate = this.maxDate;
+    } else {
+      const convertToEpoch:any =  this.createOrEditEmployee.controls.birth_date.value ? this.createOrEditEmployee.controls.birth_date.value: '';
+      const dateTime = convertToEpoch?.toString().length === 10 ? convertToEpoch * 1000 : convertToEpoch;
+      const data = dayjs(dateTime)
+      const day = Number(data.format('D'));
+      const month = (Number(data.format('M')) - 1);
+      const year = Number(data.format('YYYY')); 
+      this.useDate = new Date(year, month, day);
+    }
   }
 
   editPatchEmployee(){
@@ -80,6 +103,9 @@ export class CreateEmployeeComponent implements OnInit {
         group: dataEmployee.group,
         description: dataEmployee.description
       });
+      this.getDateNow('edit');
+    } else {
+      this.getDateNow();
     }
   }
 
@@ -96,8 +122,7 @@ export class CreateEmployeeComponent implements OnInit {
       first_name: 'Anjasmara ',
       last_name: 'Dwi S',
       email: 'anjasmra@gamil.com',
-      birth_date: '164781258281',
-      basic_salary: 0,
+      basic_salary: 4000,
       status: 'active',
       group: 'C',
       description: 'testing payload'
@@ -105,13 +130,26 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   onSubmit(){
+    let employeeSave;
     const timestampId = new Date().getTime();
-    this.createOrEditEmployee.patchValue({
-      id:String(timestampId),
-      birth_date: '644561967'
-    })
+    const dataTime = dayjs(this.useDate).unix();
+    if(this.nameRoute === 'edit'){
+      this.createOrEditEmployee.patchValue({
+        birth_date: String(dataTime)
+      })
+    } else {
+      this.createOrEditEmployee.patchValue({
+        id:String(timestampId),
+        birth_date: String(dataTime)
+      })
+    }
+
     const dataEmployee =  this.createOrEditEmployee;
-    let employeeSave = this.employeeService.addEmployee('add', dataEmployee.value);
+    if(this.nameRoute === 'edit'){
+      employeeSave = this.employeeService.addEmployee('edit', dataEmployee.value);
+    } else{
+      employeeSave = this.employeeService.addEmployee('add', dataEmployee.value);
+    }
     
     if(employeeSave){
       Swal.fire({
