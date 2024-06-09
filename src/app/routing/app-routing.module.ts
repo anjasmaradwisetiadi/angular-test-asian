@@ -5,7 +5,7 @@ import { LoginComponent } from '../views/auth/login/login.component';
 import { DashboardComponent } from '../views/dashboard/dashboard.component';
 import { AuthGuardService } from '../service/authService/auth-guard.service';
 import { LoginGuardService } from '../service/authService/login-guard.service';
-
+import { TableMaterialComponent } from '../views/table-material/table-material.component';
 const routes: Routes = [
   {
     path: 'login',
@@ -22,7 +22,10 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     loadChildren: () => import('../views/employee/employee.module').then((m)=> m.EmployeeModule) 
   },
-  { path: 'dashboard', component: DashboardComponent},
+  { 
+    path: 'table-material', 
+    component: TableMaterialComponent
+  },
   { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
 ];
 

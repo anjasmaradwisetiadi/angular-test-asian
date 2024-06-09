@@ -27,6 +27,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { TableMaterialComponent } from './views/table-material/table-material.component';
 
 const MAT_MODULES = [
   MatMenuModule,
@@ -52,6 +53,7 @@ const MAT_MODULES = [
     AppComponent,
     ...componentModules,
     LoginComponent,
+    TableMaterialComponent,
   ],
   schemas:[
     CUSTOM_ELEMENTS_SCHEMA
