@@ -1,7 +1,7 @@
 <div class="container pt-4 mt-5">
-    <h2> Detail Profile </h2>
+    <h2 class="text-center"> Detail Profile </h2>
 
-    <div class="bg-white">
+    <div class="bg-white mt-3" *ngIf="detailEmployee?.id">
         <div class="">
             <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-warning" (click)="onEdit()"> Edit</button>
@@ -18,7 +18,7 @@
                 </div>
                 <div class="ms-2">
                     <h3>{{detailEmployee.user_name}}</h3>
-                    <span>status: {{detailEmployee.status}}</span>
+                    <span>status: <b>{{detailEmployee.status}}</b></span>
                 </div>
             </div>
             <div class="d-block mt-4">
@@ -51,7 +51,7 @@
                         Birth Date 
                     </div>
                     <div class="col-sm-8 col-md-8 col-lg-10">
-                        : {{detailEmployee.birth_date}}
+                        : {{convertTimeDate(detailEmployee.birth_date)}}
                     </div>
                 </div>
                 <div class="row">
@@ -88,5 +88,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="bg-white mt-5" *ngIf="!detailEmployee?.id">
+        <h5 class="text-center">Data Not Found</h5>
     </div>
 </div>

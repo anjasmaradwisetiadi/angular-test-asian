@@ -28,7 +28,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.employeeService.actionDataEmployee(0,10);
     this.subs.sink = this.employeeService.getDataEmployee().subscribe((data: dataEmployeeInterface[])=>{
-      this.dataEmployee=data
+      this.dataEmployee= data
     })
 
     this.subs.sink = this.employeeService.getLengthPaginationEmployee().subscribe((data: any)=>{

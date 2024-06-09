@@ -23,7 +23,7 @@ export class DetailEmployeeComponent implements OnInit, OnDestroy {
   ) { 
   }
 
-  detailEmployee:dataEmployeeInterface = {
+  detailEmployee:dataEmployeeInterface | null = {
     id: '',
     user_name: "",
     first_name: "",
@@ -75,6 +75,10 @@ export class DetailEmployeeComponent implements OnInit, OnDestroy {
 
   transformBasicSalary(data:number){
     return utilize.formatIDR(data)
+  }
+
+  convertTimeDate(data:string){
+    return utilize.convertTimeDate(Number(data))
   }
 
   ngOnDestroy(): void {

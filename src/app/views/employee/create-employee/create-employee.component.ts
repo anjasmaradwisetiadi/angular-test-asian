@@ -60,6 +60,7 @@ export class CreateEmployeeComponent implements OnInit {
   // maxDate = new Date(2024, 0, 30);
   maxDate = new Date();
   useDate = new Date();
+  dataEmployee:dataEmployeeInterface | null = null;
 
   ngOnInit(): void {
      this.nameRoute = this.route.snapshot.url[0].path;
@@ -89,19 +90,19 @@ export class CreateEmployeeComponent implements OnInit {
   editPatchEmployee(){
     if(this.nameRoute === 'edit'){
       const idEmployee = this.route.snapshot.params['id'];
-      const dataEmployee = this.employeeService.getDetailEmployee(idEmployee);
-        
+      this.dataEmployee = this.employeeService.getDetailEmployee(idEmployee);
+      
       this.createOrEditEmployee.patchValue({
-        id: dataEmployee.id,
-        user_name: dataEmployee.user_name,
-        first_name: dataEmployee.first_name,
-        last_name: dataEmployee.last_name,
-        email: dataEmployee.email,
-        birth_date: dataEmployee.birth_date,
-        basic_salary: dataEmployee.basic_salary,
-        status: dataEmployee.status,
-        group: dataEmployee.group,
-        description: dataEmployee.description
+        id: this.dataEmployee?.id,
+        user_name: this.dataEmployee?.user_name,
+        first_name: this.dataEmployee?.first_name,
+        last_name: this.dataEmployee?.last_name,
+        email: this.dataEmployee?.email,
+        birth_date: this.dataEmployee?.birth_date,
+        basic_salary: this.dataEmployee?.basic_salary,
+        status: this.dataEmployee?.status,
+        group: this.dataEmployee?.group,
+        description: this.dataEmployee?.description
       });
       this.getDateNow('edit');
     } else {

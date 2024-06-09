@@ -55,9 +55,9 @@ export class EmployeeServiceService {
 
   getDetailEmployee(id: string){
     this.detailEmployee = this.dataEmployeeAll.filter((data:dataEmployeeInterface)=>{
-      return data.id === id;
+      return data.id === id ;
     })
-    return this.detailEmployee[0];
+    return this.detailEmployee.length ? this.detailEmployee[0] : null;
   }
 
   getDataEmployee(){

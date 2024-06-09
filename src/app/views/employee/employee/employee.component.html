@@ -67,7 +67,7 @@
           </th>
           <th scope="col">
             <div class="">
-              <h6>Group</h6>
+              <h6>Status</h6>
               <div>
                <input type="text" placeholder="fill...">
               </div>
@@ -75,7 +75,7 @@
           </th>
           <th scope="col">
             <div class="">
-              <h6>Status</h6>
+              <h6>Basic Salary</h6>
               <div>
                <input type="text" placeholder="fill...">
               </div>
@@ -91,7 +91,7 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody *ngIf="dataEmployee?.length">
         <tr
           *ngFor="let data of dataEmployee; index as index"
         >
@@ -121,11 +121,16 @@
           </td>
         </tr>
       </tbody>
+      <tbody *ngIf="!dataEmployee?.length">
+        <tr>
+          <td colspan="6" class="text-center">Data Not Found</td>
+        </tr>
+      </tbody>
     </table>
   </div>
   <!--********** it need seoarate to component pagination -->
   <div class="mt-2 d-flex justify-start">
-    <nav aria-label="Page navigation example">
+    <nav aria-label="Page navigation example" *ngIf="lengthPagination?.length">
       <ul class="pagination">
         <li class="page-item">
           <a class="page-link" href="#" aria-label="Previous">
