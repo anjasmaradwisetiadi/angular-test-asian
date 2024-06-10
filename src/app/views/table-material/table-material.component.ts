@@ -1,77 +1,42 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import {MatSort, Sort} from '@angular/material/sort';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
-
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
-}
-
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
+import { EmployeeServiceService } from '../employee/employee-service.service';
+import { dataEmployeeInterface } from 'src/app/interface/employee-interface';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-table-material',
   templateUrl: './table-material.component.html',
   styleUrls: ['./table-material.component.css']
 })
-export class TableMaterialComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
-  dataSource: MatTableDataSource<UserData>;
+export class TableMaterialComponent implements OnInit, OnDestroy {
+  private subs = new SubSink;
+  displayedColumns: string[] = ['id', 'user_name', 'email', 'status', 'basic_salary', 'group'];
+  dataSource: MatTableDataSource<dataEmployeeInterface>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort| any;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) {
-        // Create 100 users
-        const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
+  constructor(private _liveAnnouncer: LiveAnnouncer, private employeeService:EmployeeServiceService) {
 
-        // Assign the data to the data source for the table to render
-        this.dataSource = new MatTableDataSource(users);
   }
   
 
 
   ngOnInit(): void {
+    this.employeeService.actionDataEmployee(0,10);
+    this.subs.sink = this.employeeService.getDataEmployee().subscribe((data: dataEmployeeInterface[])=>{
+      this.dataSource = new MatTableDataSource(data);
+    })
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    console.log('data');
+    console.log(this.paginator);
     this.dataSource.sort = this.sort;
   }
 
@@ -86,20 +51,13 @@ export class TableMaterialComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-}
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
+  onDetail(id){
+    console.log('data id = ');
+    console.log(id);
+  }
 
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  };
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 }
