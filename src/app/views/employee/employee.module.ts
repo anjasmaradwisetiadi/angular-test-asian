@@ -7,40 +7,7 @@ import { EmployeeRoutingModule } from './employee-routing.module';
 import { EmployeeComponent } from './employee/employee.component';
 import { DetailEmployeeComponent } from './detail-employee/detail-employee.component';
 import { CreateEmployeeComponent } from './create-employee/create-employee.component';
-import { MatDatepickerModule} from '@angular/material/datepicker';
-import { MatFormFieldModule} from '@angular/material/form-field';
-import { MatNativeDateModule} from '@angular/material/core';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatListModule } from '@angular/material/list';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
-
-
-const MAT_MODULES = [
-  MatMenuModule,
-  MatCardModule,
-  MatToolbarModule,
-  MatTabsModule,
-  MatListModule,
-  MatCheckboxModule,
-  MatDialogModule,
-  MatSlideToggleModule,
-  
-
-  // aman
-  MatButtonModule,
-  MatInputModule,
-  MatDatepickerModule,
-  MatFormFieldModule,
-  MatNativeDateModule,
-];
+import { MAT_MODULES_IMPORT } from 'src/app/module-material';
 
 @NgModule({
   declarations: [
@@ -53,7 +20,7 @@ const MAT_MODULES = [
     EmployeeRoutingModule,
     FormsModule, 
     ReactiveFormsModule,
-    ...MAT_MODULES
+    ...MAT_MODULES_IMPORT
   ],
   providers:[
     // provideAnimations(),
