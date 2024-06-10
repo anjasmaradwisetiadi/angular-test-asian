@@ -17,11 +17,15 @@ export class EmployeeServiceService {
 
   actionDataEmployee(start:number = 0, end:number = 10){
     this.dataEmployee.next(this.dataEmployeeAll.slice(start,end));
-    this.actionPaginationEmployee();
+    // this.actionPaginationEmployee();
   } 
 
-  actionPaginationEmployee(){
-    const calculatePagination = this.dataEmployeeAll?.length / 10
+  actionPaginationEmployee(differential:number = 10 ){
+    let calculatePagination = 0
+    this.getDataEmployee().subscribe((data)=>{
+      calculatePagination = data?.length / differential
+      // calculatePagination = calculatePagination < 1 ? 1 : calculatePagination 
+    })
     this.paginationEmployee.next(calculatePagination)
   }
 
@@ -72,8 +76,9 @@ export class EmployeeServiceService {
       // Return true if all conditions match
       return userNameMatch && emailMatch && statusMatch && basicSalaryMatch;
     });
+    this.actionDataEmployee(0, 10);
     this.dataEmployee.next(dataFilter);
-    
+    this.actionPaginationEmployee();
   }
 
 

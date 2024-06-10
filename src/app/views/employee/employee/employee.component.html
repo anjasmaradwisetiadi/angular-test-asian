@@ -35,11 +35,6 @@
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
     
-        <ng-container matColumnDef="no">
-          <th mat-header-cell *matHeaderCellDef> No </th>
-          <td mat-cell *matCellDef="let row; let i = index"> {{ startPaginate + (i+1) }} </td>
-        </ng-container>
-    
         <ng-container matColumnDef="user_name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
           <td mat-cell *matCellDef="let row"> {{row.user_name}} </td>
@@ -92,9 +87,11 @@
         </tr>
       </table>
       <mat-paginator 
-        [pageSizeOptions]="[5, 10, 25, 100]"
-        [length] = "lengthPagination" 
+        [pageSizeOptions]="[10, 25, 100]"
+        [pageSize]="pageSize"
+        [length]="lengthPagination" 
         (page)="handlePageEvent($event)" 
+        [disabled]="lengthData < 10"
         aria-label="Select page of users">
       </mat-paginator>
     </div>

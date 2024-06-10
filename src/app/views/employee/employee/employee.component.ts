@@ -29,7 +29,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   basicSalaryFilter: number|null = 0;
 
   constructor(private employeeService:EmployeeServiceService, private router: Router, private location:Location) { }
-  displayedColumns: string[] = ['no', 'user_name', 'email', 'status', 'basic_salary', 'action'];
+  displayedColumns: string[] = ['user_name', 'email', 'status', 'basic_salary', 'action'];
   dataSource: MatTableDataSource<dataEmployeeInterface>;
 
   private subs = new SubSink;
@@ -37,6 +37,8 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   lengthPagination:number = 0;
   startPaginate = 0;
   endPaginate = 0;
+  pageSize = 10;
+  lengthData = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort| any;
@@ -48,20 +50,17 @@ export class EmployeeComponent implements OnInit, OnDestroy {
 
   getData(){
     this.subs.sink = this.employeeService.getDataEmployee().subscribe((data: dataEmployeeInterface[])=>{
+      this.lengthData = data.length;
       this.dataSource = new MatTableDataSource(data);
     })
 
     this.subs.sink = this.employeeService.getLengthPaginationEmployee().subscribe((data: number)=>{
-      console.log('data trigger');
-      console.log(data);
       this.lengthPagination = data
     })
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    console.log('this.dataSource.paginator');
-    console.log(this.dataSource.paginator);
     this.dataSource.sort = this.sort;
   }
 
@@ -121,25 +120,29 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   }
 
   applyFilterOn(){
-    const payload ={
+    //********* */ reset pagination
+    this.paginator.firstPage();
+    this.pageSize = 10;
+    //********* */ end reset pagination
+    const payload = {
       user_name: this.usernameFilter,
       email: this.emailFilter,
       status: this.statusFilter,
       basic_salary: this.basicSalaryFilter
     }
-    this.employeeService.actionFilterEmployee(payload)
-    this.getData();
-    console.log("this.dataSource.paginator = ");
-    console.log(this.dataSource.paginator);
-    if (this.dataSource.paginator) {
-      console.log("this.dataSource.paginator masuk = ");
-      console.log(this.dataSource.paginator);
-      this.dataSource.paginator.firstPage();
-    }
+    this.employeeService.actionFilterEmployee(payload);
   }
 
   applyReset(){
-    console.log('applyReset');
+    this.usernameFilter = ''
+    this.emailFilter = ''
+    this.statusFilter = ''
+    this.basicSalaryFilter = 0
+    this.paginator.firstPage();
+    this.pageSize = 10;
+    this.employeeService.actionDataEmployee(0,100);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   ngOnDestroy(): void {
