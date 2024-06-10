@@ -1,16 +1,16 @@
-<div class="pt-4 mt-5">
+<div class="pt-4 mt-5 px-1">
   <h2>Section title</h2>
   <div class="row">
-    <div class="col d-flex">
-      <div>
+    <div class="col-lg-8 col-sm-12 d-flex flex-wrap">
+      <div class="pe-2">
         <label for="">Username</label>
         <input type="text" class="form-control filter-input-style" placeholder="Username ..." [(ngModel)]="usernameFilter">
       </div>
-      <div class="ps-2">
+      <div class="pe-2">
         <label for="">Email</label>
         <input type="text" class="form-control filter-input-style" placeholder="Email ..." [(ngModel)]="emailFilter">
       </div>
-      <div class="ps-2">
+      <div class="pe-2">
         <label for="">Status</label>
         <select class="form-select filter-input-style" aria-label="Default select example" [(ngModel)]="statusFilter">
           <option selected disabled value="">Choose a status</option>
@@ -18,22 +18,22 @@
           <option value="inactive">Inactive</option>
         </select>
       </div>
-      <div class="ps-2">
+      <div class="">
         <label for="">Basic Salary</label>
         <input type="number" class="form-control filter-input-style" placeholder="Status ..." [(ngModel)]="basicSalaryFilter"> 
       </div>
     </div>
-    <div class="col d-flex justify-content-end align-items-center">
-      <div class="">
+    <div class="col-lg-4 col-sm-12 d-flex flex-wrap align-items-lg-center justify-content-sm-start justify-content-lg-end">
+      <div class="d-flex mt-2 mt-lg-4">
         <button type="button" class="btn btn-primary" (click)="onCreate()">Add Employee</button>
         <button type="button" class="btn btn-warning ms-2" (click)="applyFilterOn()">Appply</button>
         <button type="button" class="btn btn-secondary ms-2" (click)="applyReset()">Reset</button>
       </div>
     </div>
   </div>
-  <div class="table-responsive mt-4">
+  <div class=" mt-4">
     <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" matSort>
+      <table mat-table [dataSource]="dataSource" matSort class="table-responsive px-2" >
     
         <ng-container matColumnDef="user_name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
@@ -56,20 +56,20 @@
         </ng-container>
 
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef action> Action </th>
+          <th mat-header-cell *matHeaderCellDef action class="text-center"> Action </th>
           <td mat-cell *matCellDef="let row"> 
-            <div class="d-flex justify-center"> 
-              <a role="button" (click)="onDetail(row.id)"> 
+            <div class="d-flex justify-content-center"> 
+              <a role="button" class="ps-1" (click)="onDetail(row.id)"> 
                 <span class="material-icons-outlined text-success">
                   visibility
                 </span>
               </a>
-              <a role="button" class="ps-3" (click)="onEdit(row.id)"> 
+              <a role="button" class="ps-1 ps-lg-3" (click)="onEdit(row.id)"> 
                 <span class="material-icons-outlined text-warning">
                   edit
                 </span>
               </a>
-              <a role="button" class="ps-3" (click)="onDelete(row.id)"> 
+              <a role="button" class="ps-1 ps-lg-3" (click)="onDelete(row.id)"> 
                 <span class="material-icons-outlined text-danger">
                   delete
                 </span>
@@ -86,7 +86,8 @@
           <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
         </tr>
       </table>
-      <mat-paginator 
+      <mat-paginator
+        class="width-paginator-mobile" 
         [pageSizeOptions]="[10, 25, 100]"
         [pageSize]="pageSize"
         [length]="lengthPagination" 

@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
   signOut(){
     Swal.fire({
       title: "Are you sure want Sign Out ? ",
-      text: "You want sign out from this app",
+      text: "You will sign out from this app",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Sign Out",
