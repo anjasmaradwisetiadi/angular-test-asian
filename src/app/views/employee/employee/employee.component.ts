@@ -1,5 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, } from '@angular/core';
 import { dataUser } from 'src/assets/data/dataUser';
+import { MatSort, Sort} from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {   
   CanActivate,
   ActivatedRouteSnapshot,
@@ -21,20 +24,47 @@ import Swal from 'sweetalert2';
 export class EmployeeComponent implements OnInit, OnDestroy {
 
   constructor(private employeeService:EmployeeServiceService, private router: Router, private location:Location) { }
+  displayedColumns: string[] = ['no', 'user_name', 'email', 'status', 'basic_salary', 'action'];
+  dataSource: MatTableDataSource<dataEmployeeInterface>;
+
   private subs = new SubSink;
   dataEmployee:dataEmployeeInterface[] = [];
   lengthPagination:[] = [];
 
+  @ViewChild(MatPaginator) paginator: MatPaginator | any;
+  @ViewChild(MatSort) sort: MatSort| any;
+
   ngOnInit(): void {
-    this.employeeService.actionDataEmployee(0,10);
+    this.employeeService.actionDataEmployee(0,100);
     this.subs.sink = this.employeeService.getDataEmployee().subscribe((data: dataEmployeeInterface[])=>{
-      this.dataEmployee= data
+      this.dataSource = new MatTableDataSource(data);
     })
 
     this.subs.sink = this.employeeService.getLengthPaginationEmployee().subscribe((data: any)=>{
       this.lengthPagination = data
     })
   }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    console.log('this.dataSource.filter = ');
+    console.log(this.dataSource);
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  handlePageEvent($event: PageEvent){
+    this.employeeService.actionDataEmployee(0,$event.pageSize);
+  }
+
   onCreate(){
     this.router.navigate(['/employee/create'])
   }
@@ -69,7 +99,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     })
   }
 
-  applyFilter(){
+  applyFilterOn(){
     console.log('applyFilter');
   }
 

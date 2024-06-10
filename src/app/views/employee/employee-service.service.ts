@@ -10,7 +10,7 @@ export class EmployeeServiceService {
 
   constructor() { }
   data = []
-  dataEmployeeAll = dataDummyEmployeeLimit; 
+  dataEmployeeAll = dataDummyEmployee; 
   detailEmployee:dataEmployeeInterface[]=[]; 
   dataEmployee = new BehaviorSubject<dataEmployeeInterface[]>(this.data);
   paginationEmployee = new BehaviorSubject<number[]>([]);
@@ -28,28 +28,28 @@ export class EmployeeServiceService {
 
   addEmployee(from:string, payload:any) {
     if(from === 'add'){
-      return dataDummyEmployeeLimit.unshift(payload);
+      return dataDummyEmployee.unshift(payload);
     } else {
       let indexEdit = 0;
-      dataDummyEmployeeLimit.forEach((data:dataEmployeeInterface, index:number)=>{
+      dataDummyEmployee.forEach((data:dataEmployeeInterface, index:number)=>{
         if (data.id === payload.id){
           indexEdit = index
         } 
       })
-      dataDummyEmployeeLimit[indexEdit] = payload;
+      dataDummyEmployee[indexEdit] = payload;
       return [payload]
     }
   }
 
   deleteEmployee(id: string){
     let indexDelete = 0;
-    dataDummyEmployeeLimit.forEach((data:dataEmployeeInterface, index:number)=>{
+    dataDummyEmployee.forEach((data:dataEmployeeInterface, index:number)=>{
       if (data.id === id){
         indexDelete = index
       } 
     })
-    dataDummyEmployeeLimit.splice(indexDelete,1);
-    this.dataEmployeeAll = dataDummyEmployeeLimit; 
+    dataDummyEmployee.splice(indexDelete,1);
+    this.dataEmployeeAll = dataDummyEmployee; 
     this.actionDataEmployee(0,10);
   }
 
