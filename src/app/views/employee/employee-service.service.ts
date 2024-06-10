@@ -13,7 +13,7 @@ export class EmployeeServiceService {
   dataEmployeeAll = dataDummyEmployee; 
   detailEmployee:dataEmployeeInterface[]=[]; 
   dataEmployee = new BehaviorSubject<dataEmployeeInterface[]>(this.data);
-  paginationEmployee = new BehaviorSubject<number[]>([]);
+  paginationEmployee = new BehaviorSubject<number>(0);
 
   actionDataEmployee(start:number = 0, end:number = 10){
     this.dataEmployee.next(this.dataEmployeeAll.slice(start,end));
@@ -22,8 +22,7 @@ export class EmployeeServiceService {
 
   actionPaginationEmployee(){
     const calculatePagination = this.dataEmployeeAll?.length / 10
-    const parseNumberToArray = Array.from({length: calculatePagination}, (_, i) => i + 1);
-    this.paginationEmployee.next(parseNumberToArray)
+    this.paginationEmployee.next(calculatePagination)
   }
 
   addEmployee(from:string, payload:any) {

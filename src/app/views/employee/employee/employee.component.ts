@@ -34,24 +34,34 @@ export class EmployeeComponent implements OnInit, OnDestroy {
 
   private subs = new SubSink;
   dataEmployee:dataEmployeeInterface[] = [];
-  lengthPagination:[] = [];
+  lengthPagination:number = 0;
+  startPaginate = 0;
+  endPaginate = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort| any;
 
   ngOnInit(): void {
     this.employeeService.actionDataEmployee(0,100);
+    this.getData();
+  }
+
+  getData(){
     this.subs.sink = this.employeeService.getDataEmployee().subscribe((data: dataEmployeeInterface[])=>{
       this.dataSource = new MatTableDataSource(data);
     })
 
-    this.subs.sink = this.employeeService.getLengthPaginationEmployee().subscribe((data: any)=>{
+    this.subs.sink = this.employeeService.getLengthPaginationEmployee().subscribe((data: number)=>{
+      console.log('data trigger');
+      console.log(data);
       this.lengthPagination = data
     })
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    console.log('this.dataSource.paginator');
+    console.log(this.dataSource.paginator);
     this.dataSource.sort = this.sort;
   }
 
@@ -67,7 +77,9 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   }
 
   handlePageEvent($event: PageEvent){
-    this.employeeService.actionDataEmployee(0,$event.pageSize);
+    this.startPaginate = $event.pageIndex * $event.pageSize
+    this.endPaginate = ($event.pageIndex+1) * $event.pageSize
+    this.employeeService.actionDataEmployee(this.startPaginate, this.endPaginate);
   }
 
   onCreate(){
@@ -116,6 +128,14 @@ export class EmployeeComponent implements OnInit, OnDestroy {
       basic_salary: this.basicSalaryFilter
     }
     this.employeeService.actionFilterEmployee(payload)
+    this.getData();
+    console.log("this.dataSource.paginator = ");
+    console.log(this.dataSource.paginator);
+    if (this.dataSource.paginator) {
+      console.log("this.dataSource.paginator masuk = ");
+      console.log(this.dataSource.paginator);
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   applyReset(){
