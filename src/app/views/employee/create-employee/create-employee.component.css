@@ -4,6 +4,13 @@
     background-color: white;
 }
 
+@media (max-width: 767.98px) {
+    .form-control-style {
+        display: block !important;
+        width: 100% !important;
+    }
+}
+
 .form-control-style {
     display: block;
     width: 49%;

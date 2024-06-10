@@ -1,15 +1,15 @@
-<div class="container pt-4 mt-5">
+<div class="container py-4 mt-5">
     <h2 class="text-center"> Detail Profile </h2>
 
     <div class="bg-white mt-3" *ngIf="detailEmployee?.id">
         <div class="">
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-lg-end justify-content-center mb-3">
                 <button type="button" class="btn btn-warning" (click)="onEdit()"> Edit</button>
                 <button type="button" class="btn btn-danger ms-2" (click)="onDelete()"> Delete</button>
                 <button type="button" class="btn btn-secondary ms-2" (click)="onBack()"> Back</button>
             </div>
-            <div class=" d-flex align-items-center">
-                <div>
+            <div class=" d-flex flex-column flex-lg-row align-items-center justify-content-center">
+                <div class="">
                     <img 
                         src="https://master-duel-ruler.site/storage/post-image/photo-external/user_1.png" 
                         alt="image" 
@@ -21,69 +21,71 @@
                     <span>status: <b>{{detailEmployee.status}}</b></span>
                 </div>
             </div>
-            <div class="d-block mt-4">
-                <div class="d-flex row">
-                    <div class="col-sm-4 col-md-4 col-lg-2 fw-bold">
-                        First name 
+            <div class="row mt-4 justify-content-center">
+                <div class="col-lg-8 col shadow p-3 rounded-2">
+                    <div class="d-flex row">
+                        <div class="col-4 col-md-4 col-lg-2 fw-bold">
+                            First name 
+                        </div>
+                        <div class="col-8 col-md-8 col-lg-10">
+                            : {{detailEmployee.first_name}}
+                        </div>
                     </div>
-                    <div class="col-sm-8 col-md-8 col-lg-10">
-                        : {{detailEmployee.first_name}}
+                    <div class="row">
+                        <div class="col-4 col-md-4 col-lg-2 fw-bold">
+                            Last name 
+                        </div>
+                        <div class="col-8 col-md-8 col-lg-10">
+                            : {{detailEmployee.last_name}}
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-2 fw-bold">
-                        Last name 
+                    <div class="row">
+                        <div class="col-4 col-md-4 col-lg-2 fw-bold">
+                            Email 
+                        </div>
+                        <div class="col-8 col-md-8 col-lg-10">
+                            : {{detailEmployee.email}}
+                        </div>
                     </div>
-                    <div class="col-sm-8 col-md-8 col-lg-10">
-                        : {{detailEmployee.last_name}}
+                    <div class="row">
+                        <div class="col-4 col-md-4 col-lg-2 fw-bold">
+                            Birth Date 
+                        </div>
+                        <div class="col-8 col-md-8 col-lg-10">
+                            : {{convertTimeDate(detailEmployee.birth_date)}}
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-2 fw-bold">
-                        Email 
+                    <div class="row">
+                        <div class="col-4 col-md-4 col-lg-2 fw-bold">
+                            Basic Salary 
+                        </div>
+                        <div class="col-8 col-md-8 col-lg-10">   
+                            : {{transformBasicSalary(detailEmployee.basic_salary)}}
+                        </div>
                     </div>
-                    <div class="col-sm-8 col-md-8 col-lg-10">
-                        : {{detailEmployee.email}}
+                    <div class="row">
+                        <div class="col-4 col-md-4 col-lg-2 fw-bold">
+                            Status 
+                        </div>
+                        <div class="col-8 col-md-8 col-lg-10">
+                            : {{detailEmployee.status}}
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-2 fw-bold">
-                        Birth Date 
+                    <div class="row">
+                        <div class="col-4 col-md-4 col-lg-2 fw-bold">
+                            Group 
+                        </div>
+                        <div class="col-8 col-md-8 col-lg-10">
+                            : {{detailEmployee.group}}
+                        </div>
                     </div>
-                    <div class="col-sm-8 col-md-8 col-lg-10">
-                        : {{convertTimeDate(detailEmployee.birth_date)}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-2 fw-bold">
-                        Basic Salary 
-                    </div>
-                    <div class="col-sm-8 col-md-8 col-lg-10">   
-                        : {{transformBasicSalary(detailEmployee.basic_salary)}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-2 fw-bold">
-                        Status 
-                    </div>
-                    <div class="col-sm-8 col-md-8 col-lg-10">
-                        : {{detailEmployee.status}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-2 fw-bold">
-                        Group 
-                    </div>
-                    <div class="col-sm-8 col-md-8 col-lg-10">
-                        : {{detailEmployee.group}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-2 fw-bold">
-                        Description 
-                    </div>
-                    <div class="col-sm-8 col-md-8 col-lg-10">
-                        : {{detailEmployee.description}}
+                    <div class="row">
+                        <div class="col-4 col-md-4 col-lg-2 fw-bold">
+                            Description 
+                        </div>
+                        <div class="col-8 col-md-8 col-lg-10">
+                            : {{detailEmployee.description}}
+                        </div>
                     </div>
                 </div>
             </div>

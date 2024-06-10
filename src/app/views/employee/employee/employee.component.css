@@ -2,31 +2,6 @@ table {
     width: 100%;
 }
 
-.mat-form-field {
-    font-size: 14px;
-    width: 100%;
-}
-
-td:nth-child(1), th:nth-child(1) {
-    width: 20%;
-}
-td:nth-child(2), th:nth-child(2) {
-    width: 25%;
-}
-td:nth-child(3), th:nth-child(3) {
-    width: 10%;
-}
-td:nth-child(4), th:nth-child(4) {
-    width: 20%;
-}
-td:nth-child(5), th:nth-child(5) {
-    width: 25%;
-}
-
-.filter-input-style{
-    width: 12rem;
-}
-
 @media (max-width: 767.98px) {
     .filter-input-style{
         max-width: 100%;
@@ -79,4 +54,29 @@ td:nth-child(5), th:nth-child(5) {
         background: white !important;
         box-shadow: 0 8px 8px -4px rgb(41, 40, 40);
     }
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+td:nth-child(1), th:nth-child(1) {
+    width: 20%;
+}
+td:nth-child(2), th:nth-child(2) {
+    width: 25%;
+}
+td:nth-child(3), th:nth-child(3) {
+    width: 10%;
+}
+td:nth-child(4), th:nth-child(4) {
+    width: 20%;
+}
+td:nth-child(5), th:nth-child(5) {
+    width: 25%;
+}
+
+.filter-input-style{
+    width: 12rem;
 }
