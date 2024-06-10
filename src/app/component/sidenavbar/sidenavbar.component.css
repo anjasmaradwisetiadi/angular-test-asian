@@ -18,7 +18,11 @@
   
   @media (max-width: 767.98px) {
     .sidebar {
-      top: 5rem;
+      top: 0rem;
+    }
+    .button-sign-out{
+      display: block !important;
+      visibility: visible !important;
     }
   }
   
@@ -54,8 +58,12 @@
     font-size: .75rem;
     text-transform: uppercase;
   }
-  
 
   .cursor-pointer{
     cursor: pointer;
+  }
+
+  .button-sign-out{
+    display: none;
+    visibility: hidden;
   }
