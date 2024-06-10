@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/service/authService/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,20 @@ export class NavbarComponent implements OnInit {
   }
 
   signOut(){
-    this.authService.isLogout();
+    Swal.fire({
+      title: "Are you sure want Sign Out ? ",
+      text: "You want sign out from this app",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sign Out",
+      confirmButtonColor: "#0d6efd",
+    }).then((result)=>{
+      if(result.isConfirmed){
+        this.authService.isLogout();
+      }
+    })
+
+
   }
 
 }
