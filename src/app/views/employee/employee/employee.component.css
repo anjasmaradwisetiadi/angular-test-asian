@@ -1,12 +1,16 @@
 table {
     width: 100%;
-  }
-  
-  .mat-form-field {
+}
+
+.mat-form-field {
     font-size: 14px;
     width: 100%;
-  }
-  
-  td, th {
+}
+
+td, th {
     width: 10%;
-  }
+}
+
+.filter-input-style{
+    width: 12rem;
+}

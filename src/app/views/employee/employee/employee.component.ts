@@ -15,6 +15,7 @@ import { EmployeeServiceService } from '../employee-service.service';
 import { SubSink } from 'subsink';
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
+import { utilize } from 'src/app/utilize';
 
 @Component({
   selector: 'app-employee',
@@ -22,6 +23,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit, OnDestroy {
+  usernameFilter = "";
+  emailFilter = "";
+  statusFilter = "";
+  basicSalaryFilter: number|null = 0;
 
   constructor(private employeeService:EmployeeServiceService, private router: Router, private location:Location) { }
   displayedColumns: string[] = ['no', 'user_name', 'email', 'status', 'basic_salary', 'action'];
@@ -99,8 +104,18 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     })
   }
 
+  transformBasicSalary(data:number){
+    return utilize.formatIDR(data)
+  }
+
   applyFilterOn(){
-    console.log('applyFilter');
+    const payload ={
+      user_name: this.usernameFilter,
+      email: this.emailFilter,
+      status: this.statusFilter,
+      basic_salary: this.basicSalaryFilter
+    }
+    this.employeeService.actionFilterEmployee(payload)
   }
 
   applyReset(){

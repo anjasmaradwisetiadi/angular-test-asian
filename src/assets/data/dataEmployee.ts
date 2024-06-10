@@ -13,13 +13,13 @@ export const dataDummyEmployeeLimit = [
   },
   {
     id: '2',
-    user_name: "jsmith2",
-    first_name: "Jane",
+    user_name: "jdoe2",
+    first_name: "John",
     last_name: "2",
-    email: "jane.smith2@example.com",
+    email: "jane.jdoe2@example.com",
     birth_date: "1611979250",
     basic_salary: 60000,
-    status: "active",
+    status: "inactive",
     group: "B",
     description: "Jane is a project manager."
   },
@@ -135,14 +135,14 @@ export const dataDummyEmployee = [
       description: "John is a software developer."
     },
     {
-      id:'2',
-      user_name: "jsmith2",
-      first_name: "Jane",
+      id: '2',
+      user_name: "jdoe2",
+      first_name: "John",
       last_name: "2",
-      email: "jane.smith2@example.com",
+      email: "jane.jdoe2@example.com",
       birth_date: "1611979250",
       basic_salary: 60000,
-      status: "active",
+      status: "inactive",
       group: "B",
       description: "Jane is a project manager."
     },

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { dataDummyEmployeeLimit } from 'src/assets/data/dataEmployee';
 import { dataDummyEmployee } from 'src/assets/data/dataEmployee';
 import { dataEmployeeInterface } from 'src/app/interface/employee-interface'
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, filter } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -52,6 +52,31 @@ export class EmployeeServiceService {
     this.dataEmployeeAll = dataDummyEmployee; 
     this.actionDataEmployee(0,10);
   }
+
+  actionFilterEmployee(payload){
+    let firstTimeFilter = true;
+    let dataFilter = [];
+    let dataEmployeeFilterValue = this.dataEmployeeAll;
+    dataFilter = this.dataEmployeeAll.filter(item => {
+      // Check user_name
+      const userNameMatch = payload.user_name ? item.user_name.includes(payload.user_name) : true;
+  
+      // Check email
+      const emailMatch = payload.email ? item.email.includes(payload.email) : true;
+  
+      // Check status
+      const statusMatch = payload.status ? item.status === payload.status : true;
+  
+      // Check basic_salary
+      const basicSalaryMatch = payload.basic_salary ? item.basic_salary === payload.basic_salary : true;
+  
+      // Return true if all conditions match
+      return userNameMatch && emailMatch && statusMatch && basicSalaryMatch;
+    });
+    this.dataEmployee.next(dataFilter);
+    
+  }
+
 
   getDetailEmployee(id: string){
     this.detailEmployee = this.dataEmployeeAll.filter((data:dataEmployeeInterface)=>{
