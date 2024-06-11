@@ -39,6 +39,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   endPaginate = 0;
   pageSize = 10;
   lengthData = 0;
+  sortValue = {};
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort| any;
@@ -62,17 +63,6 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    console.log('this.dataSource.filter = ');
-    console.log(this.dataSource);
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 
   handlePageEvent($event: PageEvent){
@@ -120,6 +110,15 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     return utilize.formatIDR(data)
   }
 
+  payloadFilter(){
+    return{
+      user_name: this.usernameFilter,
+      email: this.emailFilter,
+      status: this.statusFilter,
+      basic_salary: this.basicSalaryFilter
+    }
+  }
+
   applyFilterOn(){
     //********* */ reset pagination
     this.paginator.firstPage();
@@ -131,19 +130,26 @@ export class EmployeeComponent implements OnInit, OnDestroy {
       status: this.statusFilter,
       basic_salary: this.basicSalaryFilter
     }
-    this.employeeService.actionFilterEmployee(payload);
+    this.employeeService.actionFilterEmployee(payload, this.sortValue);
   }
 
   applyReset(){
-    this.usernameFilter = ''
-    this.emailFilter = ''
-    this.statusFilter = ''
-    this.basicSalaryFilter = 0
+    this.usernameFilter = '';
+    this.emailFilter = '';
+    this.statusFilter = '';
+    this.basicSalaryFilter = 0;
     this.paginator.firstPage();
     this.pageSize = 10;
     this.employeeService.actionDataEmployee(0,100);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.sortValue = {};
+    this.applyFilterOn();
+  }
+
+  sortData($event: Sort){
+    this.sortValue = $event.active ? { [$event.active]: $event.direction ? $event.direction : `asc` } : null;
+    this.applyFilterOn()
   }
 
   ngOnDestroy(): void {

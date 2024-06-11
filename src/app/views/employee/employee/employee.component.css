@@ -2,6 +2,11 @@ table {
     width: 100%;
 }
 
+th {
+    font-size: 16px;
+    font-weight: bold;
+}
+
 @media (max-width: 767.98px) {
     .filter-input-style{
         max-width: 100%;

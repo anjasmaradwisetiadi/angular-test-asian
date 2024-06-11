@@ -56,10 +56,8 @@ export class EmployeeServiceService {
     this.actionDataEmployee(0,10);
   }
 
-  actionFilterEmployee(payload){
-    let firstTimeFilter = true;
+  actionFilterEmployee(payload, sorting:object = {}){
     let dataFilter = [];
-    let dataEmployeeFilterValue = this.dataEmployeeAll;
     dataFilter = this.dataEmployeeAll.filter(item => {
       // Check user_name
       const userNameMatch = payload.user_name ? item.user_name.includes(payload.user_name) : true;
@@ -77,8 +75,46 @@ export class EmployeeServiceService {
       return userNameMatch && emailMatch && statusMatch && basicSalaryMatch;
     });
     this.actionDataEmployee(0, 10);
+    dataFilter = this.actionFilterSorting(dataFilter, sorting)
     this.dataEmployee.next(dataFilter);
     this.actionPaginationEmployee();
+  }
+
+  actionFilterSorting(payload, sorting:object = {}){
+    let nameSort = Object.keys(sorting)
+    if(nameSort?.length){
+      payload = payload.sort((a, b) => {
+        if(nameSort[0] !== 'basic_salary'){
+          const nameA = a[`${nameSort}`].toLowerCase(); // ignore upper and lowercase
+          const nameB = b[`${nameSort}`].toLowerCase(); // ignore upper and lowercase
+          if(sorting[`${nameSort}`] === 'asc'){
+            if (nameA < nameB) {
+              return -1;
+            }
+            if (nameA > nameB) {
+              return 1;
+            }
+          } else {
+            if (nameA > nameB) {
+              return -1;
+            }
+            if (nameA < nameB) {
+              return 1;
+            }
+          }
+          // names must be equal
+          return 0;
+        } else {
+          if(sorting[`${nameSort}`] === 'asc'){
+            return a[`${nameSort}`] - b[`${nameSort}`]
+          } else {
+            return b[`${nameSort}`] - a[`${nameSort}`]
+          }
+        }
+      });
+      return payload;
+    } 
+    return payload;
   }
 
 

@@ -33,7 +33,7 @@
   </div>
   <div class=" mt-4">
     <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" matSort class="table-responsive px-2" >
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="table-responsive px-2" >
     
         <ng-container matColumnDef="user_name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
