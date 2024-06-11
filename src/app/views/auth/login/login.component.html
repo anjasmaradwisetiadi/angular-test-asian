@@ -7,12 +7,12 @@
       <input formControlName="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
       <label for="floatingInput">Email address</label>
       <div 
-        *ngIf="loginForm.controls['email'].errors?.required && (loginForm.controls['email'].touched || loginForm.controls['email'].dirty)"
+        *ngIf="loginForm.controls['email'].errors['required'] && (loginForm.controls['email'].touched || loginForm.controls['email'].dirty)"
         class="invalid-feedback d-block">
         Please fill email.
       </div>
       <div 
-        *ngIf="loginForm.controls['email'].errors?.email && (loginForm.controls['email'].touched || loginForm.controls['email'].dirty)"
+        *ngIf="loginForm.controls['email'].errors['email'] && (loginForm.controls['email'].touched || loginForm.controls['email'].dirty)"
         class="invalid-feedback d-block">
         Please use correct email format.
       </div>

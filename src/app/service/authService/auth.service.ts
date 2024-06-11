@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 // import { authResponse } from '../interface/authInterface';
 import { Router } from '@angular/router';
 import { dataUserInterface } from '../../interface/authInterface';

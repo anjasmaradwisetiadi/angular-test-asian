@@ -23,12 +23,12 @@
                   <label>Email</label>
                   <input type="email" class="form-control" placeholder="Email" formControlName="email">
                   <div 
-                    *ngIf="createOrEditEmployee.controls['email'].errors?.required && (createOrEditEmployee.controls['email'].touched || createOrEditEmployee.controls['email'].dirty)"
+                    *ngIf="createOrEditEmployee.controls['email'].errors['required'] && (createOrEditEmployee.controls['email'].touched || createOrEditEmployee.controls['email'].dirty)"
                     class="invalid-feedback d-block">
                     Please fill email.
                   </div>
                   <div 
-                    *ngIf="createOrEditEmployee.controls['email'].errors?.email && (createOrEditEmployee.controls['email'].touched || createOrEditEmployee.controls['email'].dirty)"
+                    *ngIf="createOrEditEmployee.controls['email'].errors['email'] && (createOrEditEmployee.controls['email'].touched || createOrEditEmployee.controls['email'].dirty)"
                     class="invalid-feedback d-block">
                     Please use correct email format.
                   </div>
