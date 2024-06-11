@@ -1,6 +1,23 @@
-# BoilerplateAngular14
+# Angular-Test-Asian
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.13.
+youcan look for review app on thi link [angular-test-asian](https://landing-page-54d28.web.app/)  
+when you use app link angular-test-asian always use original base url => https://landing-page-54d28.web.app/
+
+Main technology using for this app: 
+```
+Angular 14
+Bootstrap 5
+Angular Material
+```
+## To Run the FrontEnd
+
+First, run the development local serve:
+```
+npm install # install package
+ng serve # running local serve 
+run build # build application
+```
 
 ## Development server
 
