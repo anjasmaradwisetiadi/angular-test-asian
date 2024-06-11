@@ -156,7 +156,8 @@ export class CreateEmployeeComponent implements OnInit {
       Swal.fire({
         title: "Success",
         text: "Successfull save data",
-        icon: "success"
+        icon: "success",
+        confirmButtonColor: "#0d6efd",
       }).then((confirm)=>{
         if(confirm){
           this.router.navigate([`/employee`])

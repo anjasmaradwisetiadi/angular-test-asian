@@ -26,7 +26,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   usernameFilter = "";
   emailFilter = "";
   statusFilter = "";
-  basicSalaryFilter: number|null = 0;
+  basicSalaryFilter: any = null;
 
   constructor(private employeeService:EmployeeServiceService, private router: Router, private location:Location) { }
   displayedColumns: string[] = ['user_name', 'email', 'status', 'basic_salary', 'action'];
@@ -107,7 +107,8 @@ export class EmployeeComponent implements OnInit, OnDestroy {
         Swal.fire({
           title: "Deleted!",
           text: "Your data has been deleted.",
-          icon: "success"
+          icon: "success",
+          confirmButtonColor: "#0d6efd",
         });
       }
     })
@@ -116,7 +117,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   transformBasicSalary(data:number){
     return utilize.formatIDR(data)
   }
-
+  
   payloadFilter(){
     return{
       user_name: this.usernameFilter,
@@ -170,7 +171,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     this.usernameFilter = '';
     this.emailFilter = '';
     this.statusFilter = '';
-    this.basicSalaryFilter = 0;
+    this.basicSalaryFilter = null;
     this.paginator.firstPage();
     this.pageSize = 10;
     this.sortValue = {};
@@ -197,7 +198,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
           user_name: '',
           email: '',
           status: '',
-          basic_salary: 0,
+          basic_salary: null,
         },
         sorting:{}
       }
