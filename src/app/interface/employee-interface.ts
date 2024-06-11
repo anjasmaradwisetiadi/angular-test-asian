@@ -10,3 +10,13 @@ export interface dataEmployeeInterface{
     group: string,
     description: string,
 }
+
+export interface dataSortingAndFilterInterface{
+    filter: {
+        user_name: string,
+        email: string,
+        status: string,
+        basic_salary: number
+    },
+    sorting: object
+}

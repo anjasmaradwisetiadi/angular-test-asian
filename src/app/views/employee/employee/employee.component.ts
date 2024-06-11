@@ -10,7 +10,7 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
-import { dataEmployeeInterface } from 'src/app/interface/employee-interface';
+import { dataEmployeeInterface, dataSortingAndFilterInterface } from 'src/app/interface/employee-interface';
 import { EmployeeServiceService } from '../employee-service.service';
 import { SubSink } from 'subsink';
 import { Location } from '@angular/common';
@@ -45,12 +45,15 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort| any;
 
   ngOnInit(): void {
-    this.employeeService.actionDataEmployee(0,100);
-    this.getData();
+    this.setAndCheckLocalStorage();
+    this.getDataEmployee();
+    // this.employeeService.actionDataEmployee(0,100);
   }
 
   getData(){
     this.subs.sink = this.employeeService.getDataEmployee().subscribe((data: dataEmployeeInterface[])=>{
+      console.log('this.dataSource ? ');
+      console.log(data);
       this.lengthData = data.length;
       this.dataSource = new MatTableDataSource(data);
     })
@@ -61,8 +64,12 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    // this.getDataEmployee();
+    // this.employeeService.actionDataEmployee(0,10);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    console.log("this.dataSource.paginator = ")
+    console.log(this.dataSource.paginator);
   }
 
   handlePageEvent($event: PageEvent){
@@ -119,11 +126,8 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     }
   }
 
-  applyFilterOn(){
-    //********* */ reset pagination
-    this.paginator.firstPage();
+  getDataEmployee(){
     this.pageSize = 10;
-    //********* */ end reset pagination
     const payload = {
       user_name: this.usernameFilter,
       email: this.emailFilter,
@@ -131,6 +135,35 @@ export class EmployeeComponent implements OnInit, OnDestroy {
       basic_salary: this.basicSalaryFilter
     }
     this.employeeService.actionFilterEmployee(payload, this.sortValue);
+    this.getData();
+  }
+
+  applyFilterOn(){
+    //********* */ end reset pagination
+    this.paginator.firstPage();
+    this.pageSize = 10;
+        //********* */ reset pagination
+    const payload = {
+      user_name: this.usernameFilter,
+      email: this.emailFilter,
+      status: this.statusFilter,
+      basic_salary: this.basicSalaryFilter
+    }
+    this.employeeService.actionFilterEmployee(payload, this.sortValue);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+ 
+    // setItemLocalStorage
+    const payloadSortFilter = {
+      filter:{
+        user_name: this.usernameFilter,
+        email: this.emailFilter,
+        status: this.statusFilter,
+        basic_salary: this.basicSalaryFilter,
+      },
+      sorting: this.sortValue
+    }
+    localStorage.setItem('sort_and_filter', JSON.stringify(payloadSortFilter))
   }
 
   applyReset(){
@@ -140,9 +173,6 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     this.basicSalaryFilter = 0;
     this.paginator.firstPage();
     this.pageSize = 10;
-    this.employeeService.actionDataEmployee(0,100);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
     this.sortValue = {};
     this.applyFilterOn();
   }
@@ -152,9 +182,31 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     this.applyFilterOn()
   }
 
+  setAndCheckLocalStorage(){
+    let getLocalStorage = localStorage.getItem('sort_and_filter');
+    const dataSortingFiltering:dataSortingAndFilterInterface|null = getLocalStorage ? JSON.parse(getLocalStorage) : null;
+    if(dataSortingFiltering){
+      this.usernameFilter = dataSortingFiltering.filter.user_name;
+      this.emailFilter = dataSortingFiltering.filter.email;
+      this.statusFilter = dataSortingFiltering.filter.status;
+      this.basicSalaryFilter = dataSortingFiltering.filter.basic_salary;
+      this.sortValue = dataSortingFiltering.sorting;
+    } else {
+      const payloadSortFilter = {
+        filter:{
+          user_name: '',
+          email: '',
+          status: '',
+          basic_salary: 0,
+        },
+        sorting:{}
+      }
+      localStorage.setItem('sort_and_filter', JSON.stringify(payloadSortFilter))
+    }
+  }
+
   ngOnDestroy(): void {
       this.subs.unsubscribe();
   }
-
 
 }

@@ -15,7 +15,7 @@ export class EmployeeServiceService {
   dataEmployee = new BehaviorSubject<dataEmployeeInterface[]>(this.data);
   paginationEmployee = new BehaviorSubject<number>(0);
 
-  actionDataEmployee(start:number = 0, end:number = 10){
+  actionDataEmployee(start:number = 0, end:number = 100){
     this.dataEmployee.next(this.dataEmployeeAll.slice(start,end));
     // this.actionPaginationEmployee();
   } 
@@ -53,7 +53,7 @@ export class EmployeeServiceService {
     })
     dataDummyEmployee.splice(indexDelete,1);
     this.dataEmployeeAll = dataDummyEmployee; 
-    this.actionDataEmployee(0,10);
+    this.actionDataEmployee(0,100);
   }
 
   actionFilterEmployee(payload, sorting:object = {}){
@@ -74,7 +74,7 @@ export class EmployeeServiceService {
       // Return true if all conditions match
       return userNameMatch && emailMatch && statusMatch && basicSalaryMatch;
     });
-    this.actionDataEmployee(0, 10);
+    this.actionDataEmployee(0, 100);
     dataFilter = this.actionFilterSorting(dataFilter, sorting)
     this.dataEmployee.next(dataFilter);
     this.actionPaginationEmployee();

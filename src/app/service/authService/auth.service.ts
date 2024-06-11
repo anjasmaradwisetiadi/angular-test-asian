@@ -73,6 +73,7 @@ export class AuthService {
 
   isLogout(){
     localStorage.removeItem('user'); 
+    localStorage.removeItem('sort_and_filter'); 
     this.conditionLoginSubject.next(false);
     this.router.navigate(['/login'])
   }
