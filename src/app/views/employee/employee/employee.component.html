@@ -59,17 +59,17 @@
           <th mat-header-cell *matHeaderCellDef action class="text-center"> Action </th>
           <td mat-cell *matCellDef="let row"> 
             <div class="d-flex justify-content-center"> 
-              <a role="button" class="ps-1" (click)="onDetail(row.id)"> 
+              <a role="button" class="ms-1 style-button" (click)="onDetail(row.id)"> 
                 <span class="material-icons-outlined text-success">
                   visibility
                 </span>
               </a>
-              <a role="button" class="ps-1 ps-lg-3" (click)="onEdit(row.id)"> 
+              <a role="button" class="ms-1 ms-lg-3 style-button" (click)="onEdit(row.id)"> 
                 <span class="material-icons-outlined text-warning">
                   edit
                 </span>
               </a>
-              <a role="button" class="ps-1 ps-lg-3" (click)="onDelete(row.id)"> 
+              <a role="button" class="ms-1 ms-lg-3 style-button" (click)="onDelete(row.id)"> 
                 <span class="material-icons-outlined text-danger">
                   delete
                 </span>

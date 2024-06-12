@@ -85,3 +85,13 @@ td:nth-child(5), th:nth-child(5) {
 .filter-input-style{
     width: 12rem;
 }
+
+.style-button{
+    padding: 3px 6px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
