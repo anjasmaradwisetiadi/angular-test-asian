@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 // import { authResponse } from '../interface/authInterface';
 import { Router } from '@angular/router';
 import { dataUserInterface } from '../../interface/authInterface';
@@ -38,7 +38,8 @@ export class AuthService {
           Swal.fire({
             title: "Success",
             text: "Successfull Login",
-            icon: "success"
+            icon: "success",
+            confirmButtonColor: "#0d6efd",
           }).then((confirm)=>{
             if(confirm){
               this.router.navigate(['/dashboard'])
@@ -48,7 +49,8 @@ export class AuthService {
           Swal.fire({
             title: "Unsuccessfull",
             text: value.message,
-            icon: "error"
+            icon: "error",
+            confirmButtonColor: "#0d6efd",
           })
           this.conditionLoginSubject.next(false);
         }

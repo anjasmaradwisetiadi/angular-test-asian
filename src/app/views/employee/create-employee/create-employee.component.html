@@ -23,12 +23,12 @@
                   <label>Email</label>
                   <input type="email" class="form-control" placeholder="Email" formControlName="email">
                   <div 
-                    *ngIf="createOrEditEmployee.controls['email'].errors?.required && (createOrEditEmployee.controls['email'].touched || createOrEditEmployee.controls['email'].dirty)"
+                    *ngIf="createOrEditEmployee.get('email').errors?.['required'] && (createOrEditEmployee.controls['email'].touched || createOrEditEmployee.controls['email'].dirty)"
                     class="invalid-feedback d-block">
                     Please fill email.
                   </div>
                   <div 
-                    *ngIf="createOrEditEmployee.controls['email'].errors?.email && (createOrEditEmployee.controls['email'].touched || createOrEditEmployee.controls['email'].dirty)"
+                    *ngIf="createOrEditEmployee.get('email').errors?.['email'] && (createOrEditEmployee.controls['email'].touched || createOrEditEmployee.controls['email'].dirty)"
                     class="invalid-feedback d-block">
                     Please use correct email format.
                   </div>
@@ -156,7 +156,7 @@
                 <button class="btn btn-primary" type="button" 
                   (click)="onSubmit()" 
                   [disabled]="createOrEditEmployee.invalid"> Submit</button>
-                <button class="btn btn-warning ms-2" type="button" (click)="payloadForm()"> Payload</button>
+                <!-- <button class="btn btn-warning ms-2" type="button" (click)="payloadForm()"> Payload</button> -->
                 <button class="btn btn-danger ms-2" type="button" (click)="onCancel()"> Cancel </button>
               </div>
             </div>

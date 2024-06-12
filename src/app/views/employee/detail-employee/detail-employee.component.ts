@@ -53,14 +53,16 @@ export class DetailEmployeeComponent implements OnInit, OnDestroy {
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonText: "Yes, delete it!",
+      confirmButtonColor: "#0d6efd",
     }).then((result) =>{
       if (result.isConfirmed) {
         this.employeeService.deleteEmployee(this.paramIdEmployee);
         Swal.fire({
           title: "Deleted!",
           text: "Your data has been deleted.",
-          icon: "success"
+          icon: "success",
+          confirmButtonColor: "#0d6efd",
         }).then((result)=>{
           if(result.isConfirmed){
             this.router.navigate(['/employee'])
