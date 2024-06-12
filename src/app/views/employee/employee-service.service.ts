@@ -60,10 +60,10 @@ export class EmployeeServiceService {
     let dataFilter = [];
     dataFilter = this.dataEmployeeAll.filter(item => {
       // Check user_name
-      const userNameMatch = payload.user_name ? item.user_name.includes(payload.user_name) : true;
+      const userNameMatch = payload.user_name ? item.user_name.trim().includes(payload.user_name.trim()) : true;
   
       // Check email
-      const emailMatch = payload.email ? item.email.includes(payload.email) : true;
+      const emailMatch = payload.email ? item.email.trim().includes(payload.email.trim()) : true;
   
       // Check status
       const statusMatch = payload.status ? item.status === payload.status : true;
@@ -81,39 +81,41 @@ export class EmployeeServiceService {
   }
 
   actionFilterSorting(payload, sorting:object = {}){
-    let nameSort = Object.keys(sorting)
-    if(nameSort?.length){
-      payload = payload.sort((a, b) => {
-        if(nameSort[0] !== 'basic_salary'){
-          const nameA = a[`${nameSort}`].toLowerCase(); // ignore upper and lowercase
-          const nameB = b[`${nameSort}`].toLowerCase(); // ignore upper and lowercase
-          if(sorting[`${nameSort}`] === 'asc'){
-            if (nameA < nameB) {
-              return -1;
+    if(sorting){
+      let nameSort = Object.keys(sorting)
+      if(nameSort?.length){
+        payload = payload.sort((a, b) => {
+          if(nameSort[0] !== 'basic_salary'){
+            const nameA = a[`${nameSort}`].toLowerCase(); // ignore upper and lowercase
+            const nameB = b[`${nameSort}`].toLowerCase(); // ignore upper and lowercase
+            if(sorting[`${nameSort}`] === 'asc'){
+              if (nameA < nameB) {
+                return -1;
+              }
+              if (nameA > nameB) {
+                return 1;
+              }
+            } else {
+              if (nameA > nameB) {
+                return -1;
+              }
+              if (nameA < nameB) {
+                return 1;
+              }
             }
-            if (nameA > nameB) {
-              return 1;
-            }
+            // names must be equal
+            return 0;
           } else {
-            if (nameA > nameB) {
-              return -1;
-            }
-            if (nameA < nameB) {
-              return 1;
+            if(sorting[`${nameSort}`] === 'asc'){
+              return a[`${nameSort}`] - b[`${nameSort}`]
+            } else {
+              return b[`${nameSort}`] - a[`${nameSort}`]
             }
           }
-          // names must be equal
-          return 0;
-        } else {
-          if(sorting[`${nameSort}`] === 'asc'){
-            return a[`${nameSort}`] - b[`${nameSort}`]
-          } else {
-            return b[`${nameSort}`] - a[`${nameSort}`]
-          }
-        }
-      });
-      return payload;
-    } 
+        });
+        return payload;
+      } 
+    }
     return payload;
   }
 

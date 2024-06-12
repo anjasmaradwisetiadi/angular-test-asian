@@ -16,6 +16,7 @@ import { SubSink } from 'subsink';
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 import { utilize } from 'src/app/utilize';
+import { startWith,tap } from 'rxjs';
 
 @Component({
   selector: 'app-employee',
@@ -40,6 +41,8 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   pageSize = 10;
   lengthData = 0;
   sortValue = {};
+  isReset = false;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort| any;
@@ -52,8 +55,8 @@ export class EmployeeComponent implements OnInit, OnDestroy {
 
   getData(){
     this.subs.sink = this.employeeService.getDataEmployee().subscribe((data: dataEmployeeInterface[])=>{
-      console.log('this.dataSource ? ');
-      console.log(data);
+      // console.log('this.dataSource ? ');
+      // console.log(data);
       this.lengthData = data.length;
       this.dataSource = new MatTableDataSource(data);
     })
@@ -66,10 +69,17 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   ngAfterViewInit() {
     // this.getDataEmployee();
     // this.employeeService.actionDataEmployee(0,10);
+    // this.dataSource.paginator = this.paginator
+    // .pipe(
+    //   startWith(null),
+    //   tap(()=>{
+    //     if (!this.isReset) {
+    //       this.applyFilterOn()
+    //     }
+    //   }))
+    //   
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    console.log("this.dataSource.paginator = ")
-    console.log(this.dataSource.paginator);
   }
 
   handlePageEvent($event: PageEvent){
@@ -150,6 +160,8 @@ export class EmployeeComponent implements OnInit, OnDestroy {
       status: this.statusFilter,
       basic_salary: this.basicSalaryFilter
     }
+    // console.log('this.sortValue = ');
+    // console.log(this.sortValue);
     this.employeeService.actionFilterEmployee(payload, this.sortValue);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -165,6 +177,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
       sorting: this.sortValue
     }
     localStorage.setItem('sort_and_filter', JSON.stringify(payloadSortFilter))
+    this.isReset = false;
   }
 
   applyReset(){
@@ -174,13 +187,16 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     this.basicSalaryFilter = null;
     this.paginator.firstPage();
     this.pageSize = 10;
-    this.sortValue = {};
+    this.sortValue = null;
+    this.sort.sort({ id: '', start: 'asc', disableClear: false });
+    this.isReset = true;
     this.applyFilterOn();
   }
 
   sortData($event: Sort){
     this.sortValue = $event.active ? { [$event.active]: $event.direction ? $event.direction : `asc` } : null;
     this.applyFilterOn()
+    this.paginator.pageIndex = 0;
   }
 
   setAndCheckLocalStorage(){
