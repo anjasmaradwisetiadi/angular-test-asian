@@ -1,6 +1,5 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { EmployeeRoutingModule } from './employee-routing.module';
@@ -25,7 +24,6 @@ import { MAT_MODULES_IMPORT } from 'src/app/module-material';
     ...MAT_MODULES_IMPORT
   ],
   providers:[
-    // provideAnimations(),
   ]
 })
 export class EmployeeModule { }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common'
 import { ActivatedRoute, Router } from '@angular/router';
-import {FormGroup, FormControl, FormBuilder, Validators,} from '@angular/forms';
+import { FormBuilder, Validators,} from '@angular/forms';
 import { dataEmployeeInterface } from 'src/app/interface/employee-interface';
 import { EmployeeServiceService } from '../employee-service.service';
 import { dataDummyGroup } from 'src/assets/data/dataEmployee';

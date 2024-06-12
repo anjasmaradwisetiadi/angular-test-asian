@@ -1,14 +1,9 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, } from '@angular/core';
-import { dataUser } from 'src/assets/data/dataUser';
+import { Component, OnInit, OnDestroy, ViewChild, } from '@angular/core';
 import { MatSort, Sort} from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {   
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
   Router,
-  UrlTree,
 } from '@angular/router';
 import { dataEmployeeInterface, dataSortingAndFilterInterface } from 'src/app/interface/employee-interface';
 import { EmployeeServiceService } from '../employee-service.service';
@@ -16,7 +11,6 @@ import { SubSink } from 'subsink';
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 import { utilize } from 'src/app/utilize';
-import { startWith,tap } from 'rxjs';
 
 @Component({
   selector: 'app-employee',
@@ -44,13 +38,12 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   isSorting = false;
 
 
-  @ViewChild(MatPaginator) paginator: MatPaginator | any;
-  @ViewChild(MatSort) sort: MatSort| any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit(): void {
     this.setAndCheckLocalStorage();
     this.getDataEmployee();
-    // this.employeeService.actionDataEmployee(0,100);
   }
 
   getData(){

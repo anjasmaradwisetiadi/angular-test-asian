@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from '../component/page-not-found/page-not-found.component';
 import { LoginComponent } from '../views/auth/login/login.component';
-import { DashboardComponent } from '../views/dashboard/dashboard.component';
 import { AuthGuardService } from '../service/authService/auth-guard.service';
 import { LoginGuardService } from '../service/authService/login-guard.service';
 import { TableMaterialComponent } from '../views/table-material/table-material.component';
@@ -22,10 +21,11 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     loadChildren: () => import('../views/employee/employee.module').then((m)=> m.EmployeeModule) 
   },
-  { 
-    path: 'table-material', 
-    component: TableMaterialComponent
-  },
+  // ******** trial use angular material table
+  // { 
+  //   path: 'table-material', 
+  //   component: TableMaterialComponent
+  // },
   { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
 ];
 

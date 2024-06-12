@@ -10,8 +10,6 @@ import { EmployeeModule } from './views/employee/employee.module';
 import { DashboardModule } from './views/dashboard/dashboard.module';
 import { componentModules } from './component/component-module';
 import { LoginComponent } from './views/auth/login/login.component';
-import { AuthService } from './service/authService/auth.service';
-import { AuthGuardService } from './service/authService/auth-guard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableMaterialComponent } from './views/table-material/table-material.component';
 import { MAT_MODULES_IMPORT } from './module-material';
