@@ -38,7 +38,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   lengthPagination:number = 0;
   startPaginate = 0;
   endPaginate = 0;
-  pageSize = 10;
+  pageSize = 25;
   lengthData = 0;
   sortValue = {};
   isSorting = false;
@@ -55,8 +55,6 @@ export class EmployeeComponent implements OnInit, OnDestroy {
 
   getData(){
     this.subs.sink = this.employeeService.getDataEmployee().subscribe((data: dataEmployeeInterface[])=>{
-      // console.log('this.dataSource ? ');
-      // console.log(data);
       this.lengthData = data.length;
       this.dataSource = new MatTableDataSource(data);
     })
@@ -67,19 +65,6 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    // this.getDataEmployee();
-    // this.employeeService.actionDataEmployee(0,10);
-    // this.dataSource.paginator = this.paginator
-    // .pipe(
-    //   startWith(null),
-    //   tap(()=>{
-    //     if (!this.isReset) {
-    //       this.applyFilterOn()
-    //     }
-    //   }))
-    //
-    // console.log("this.paginator view init= ")   
-    // console.log(this.paginator)
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -162,9 +147,9 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     let payload;
     //********* */ reset pagination
     this.dataSource.data = [];
+    this.paginator.pageSize = this.pageSize;
     this.paginator.length = 0;
     this.paginator.firstPage();
-    this.pageSize = 10;
     //********* */ end reset pagination
     payload = {
       user_name: this.usernameFilter,
@@ -172,12 +157,8 @@ export class EmployeeComponent implements OnInit, OnDestroy {
       status: this.statusFilter,
       basic_salary: this.basicSalaryFilter
     }
-    // console.log('this.sortValue = ');
-    // console.log(this.sortValue);
     this.employeeService.actionFilterEmployee(payload, this.sortValue);
     this.dataSource.paginator = this.paginator;
-    // console.log('this.paginator');
-    // console.log(this.paginator);
     this.dataSource.sort = this.sort;
     
     // setItemLocalStorage
