@@ -20,7 +20,7 @@
       </div>
       <div class="">
         <label for="">Basic Salary</label>
-        <input type="number" class="form-control filter-input-style" placeholder="Status ..." [(ngModel)]="basicSalaryFilter" > 
+        <input type="text" id="basic_salary" class="form-control filter-input-style" placeholder="Basic Salary ..." (keyup)="onlyNumber($event)" > 
       </div>
     </div>
     <div class="col-lg-4 col-sm-12 d-flex flex-wrap align-items-lg-center justify-content-sm-start justify-content-lg-end">

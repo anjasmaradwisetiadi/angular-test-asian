@@ -126,6 +126,13 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     })
   }
 
+  onlyNumber($event:Event){
+    const variable = $event.target as HTMLInputElement; 
+    variable.value = variable.value.replace(/[^0-9.]/g, '');
+    this.basicSalaryFilter = Number(variable.value);
+    return variable.value = variable.value;
+  }
+
   transformBasicSalary(data:number){
     return utilize.formatIDR(data)
   }
@@ -191,6 +198,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     this.emailFilter = '';
     this.statusFilter = '';
     this.basicSalaryFilter = null;
+    (document.querySelector('#basic_salary')as HTMLInputElement).value = null;
     this.pageSize = 10;
     this.sortValue = null;
     this.sort.sort({ id: '', start: 'asc', disableClear: false });
@@ -213,6 +221,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
       this.statusFilter = dataSortingFiltering.filter.status;
       this.basicSalaryFilter = dataSortingFiltering.filter.basic_salary;
       this.sortValue = dataSortingFiltering.sorting;
+      (document.querySelector('#basic_salary')as HTMLInputElement).value = this.basicSalaryFilter;
     } else {
       const payloadSortFilter = {
         filter:{
