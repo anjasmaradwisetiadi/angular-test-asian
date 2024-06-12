@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {FormGroup, FormControl, FormBuilder, Validators,} from '@angular/forms';
 import { dataEmployeeInterface } from 'src/app/interface/employee-interface';
 import { EmployeeServiceService } from '../employee-service.service';
-import { dataPeople, dataDummyGroup } from 'src/assets/data/dataEmployee';
+import { dataDummyGroup } from 'src/assets/data/dataEmployee';
 import Swal from 'sweetalert2';
 import * as dayjs from 'dayjs';
 
