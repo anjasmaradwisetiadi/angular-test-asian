@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {FormGroup, FormControl, FormBuilder, Validators,} from '@angular/forms';
 import { dataEmployeeInterface } from 'src/app/interface/employee-interface';
 import { EmployeeServiceService } from '../employee-service.service';
+import { dataPeople, dataDummyGroup } from 'src/assets/data/dataEmployee';
 import Swal from 'sweetalert2';
 import * as dayjs from 'dayjs';
 
@@ -37,8 +38,7 @@ export class CreateEmployeeComponent implements OnInit {
     group: ['', [Validators.required]],
     description: ['', [Validators.required]]
   })
-
-
+  
   groupName = [
     'A',
     'B',
@@ -61,6 +61,9 @@ export class CreateEmployeeComponent implements OnInit {
   maxDate = new Date();
   useDate = new Date();
   dataEmployee:dataEmployeeInterface | null = null;
+
+  people$ = dataDummyGroup;
+  selectedPersonId = '5a15b13c36e7a7f00cf0d7cb';
 
   ngOnInit(): void {
      this.nameRoute = this.route.snapshot.url[0].path;
@@ -99,7 +102,7 @@ export class CreateEmployeeComponent implements OnInit {
         last_name: this.dataEmployee?.last_name,
         email: this.dataEmployee?.email,
         birth_date: this.dataEmployee?.birth_date,
-        basic_salary: this.dataEmployee?.basic_salary,
+        basic_salary: Number(this.dataEmployee?.basic_salary),
         status: this.dataEmployee?.status,
         group: this.dataEmployee?.group,
         description: this.dataEmployee?.description
@@ -112,8 +115,8 @@ export class CreateEmployeeComponent implements OnInit {
 
   transformBasicSalary($event:Event){
     const variable = $event.target as HTMLInputElement; 
-    variable.value = variable.value.replace(/[^0-9.]/g, '');
-    return variable.value = Number(parseFloat(variable.value)).toFixed(2)
+    variable.value = variable.value.replace(/[^0-9]/g, '');
+    return variable.value
   }
 
   payloadForm(){

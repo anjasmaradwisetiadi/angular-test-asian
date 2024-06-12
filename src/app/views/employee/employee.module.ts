@@ -7,6 +7,7 @@ import { EmployeeRoutingModule } from './employee-routing.module';
 import { EmployeeComponent } from './employee/employee.component';
 import { DetailEmployeeComponent } from './detail-employee/detail-employee.component';
 import { CreateEmployeeComponent } from './create-employee/create-employee.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { MAT_MODULES_IMPORT } from 'src/app/module-material';
 
 @NgModule({
@@ -20,6 +21,7 @@ import { MAT_MODULES_IMPORT } from 'src/app/module-material';
     EmployeeRoutingModule,
     FormsModule, 
     ReactiveFormsModule,
+    NgSelectModule,
     ...MAT_MODULES_IMPORT
   ],
   providers:[

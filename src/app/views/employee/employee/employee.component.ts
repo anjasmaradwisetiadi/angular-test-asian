@@ -119,7 +119,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   }
 
   transformBasicSalary(data:number){
-    return utilize.formatIDR(data)
+    return utilize.formatIDR(Number(data))
   }
   
   payloadFilter(){

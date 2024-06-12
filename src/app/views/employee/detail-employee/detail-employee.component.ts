@@ -76,7 +76,7 @@ export class DetailEmployeeComponent implements OnInit, OnDestroy {
   }
 
   transformBasicSalary(data:number){
-    return utilize.formatIDR(data)
+    return utilize.formatIDR(Number(data))
   }
 
   convertTimeDate(data:string){

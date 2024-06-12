@@ -121,15 +121,13 @@
               <div class="col-sm-4">
                   <div class="form-group">
                       <label>Group</label>
-                      <select class="form-control" formControlName="group">
-                        <option selected disabled value="">Choose a group</option>
-                        <option 
-                          *ngFor="let data of groupName"
-                          [value]="data"
-                        >
-                          {{data}}
-                        </option>
-                      </select>
+                      <ng-select [items]="people$"
+                                formControlName="group"
+                                bindLabel="name"
+                                autofocus
+                                bindValue="value"
+                      >
+                      </ng-select>
                       <div 
                           *ngIf="createOrEditEmployee.controls['group'].invalid && (createOrEditEmployee.controls['group'].touched || createOrEditEmployee.controls['group'].dirty)"
                           class="invalid-feedback d-block">

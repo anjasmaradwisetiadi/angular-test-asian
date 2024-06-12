@@ -121,6 +121,58 @@ export const dataDummyEmployeeLimit = [
   },
 ]
 
+export const dataDummyGroup = [
+  {
+    'id': '1',
+    'name': 'A',
+    'value': 'A',  
+  },
+  {
+    'id': '2',
+    'name': 'B',
+    'value': 'B',  
+  },
+  {
+    'id': '3',
+    'name': 'C',
+    'value': 'C',  
+  },
+  {
+    'id': '4',
+    'name': 'D',
+    'value': 'D',  
+  },
+  {
+    'id': '5',
+    'name': 'E',
+    'value': 'E',  
+  },
+  {
+    'id': '6',
+    'name': 'F',
+    'value': 'F',  
+  },
+  {
+    'id': '7',
+    'name': 'G',
+    'value': 'G',  
+  },
+  {
+    'id': '8',
+    'name': 'H',
+    'value': 'H',  
+  },
+  {
+    'id': '9',
+    'name': 'I',
+    'value': 'I',  
+  },
+  {
+    'id': '10',
+    'name': 'J',
+    'value': 'JJ',  
+  },
+]
 export const dataDummyEmployee = [
     {
       id:'1',

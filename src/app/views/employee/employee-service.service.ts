@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { dataDummyEmployeeLimit } from 'src/assets/data/dataEmployee';
 import { dataDummyEmployee } from 'src/assets/data/dataEmployee';
 import { dataEmployeeInterface } from 'src/app/interface/employee-interface'
 import { BehaviorSubject, filter } from 'rxjs';
