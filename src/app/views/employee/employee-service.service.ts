@@ -20,7 +20,7 @@ export class EmployeeServiceService {
     // this.actionPaginationEmployee();
   } 
 
-  actionPaginationEmployee(differential:number = 10 ){
+  actionPaginationEmployee(differential:number = 1 ){
     let calculatePagination = 0
     this.getDataEmployee().subscribe((data)=>{
       calculatePagination = data?.length / differential

@@ -77,7 +77,9 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     //       this.applyFilterOn()
     //     }
     //   }))
-    //   
+    //
+    // console.log("this.paginator view init= ")   
+    // console.log(this.paginator)
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -151,6 +153,8 @@ export class EmployeeComponent implements OnInit, OnDestroy {
 
   applyFilterOn(){
     //********* */ end reset pagination
+    this.dataSource.data = [];
+    this.paginator.length = 0;
     this.paginator.firstPage();
     this.pageSize = 10;
         //********* */ reset pagination
@@ -164,8 +168,10 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     // console.log(this.sortValue);
     this.employeeService.actionFilterEmployee(payload, this.sortValue);
     this.dataSource.paginator = this.paginator;
+    // console.log('this.paginator');
+    // console.log(this.paginator);
     this.dataSource.sort = this.sort;
- 
+    
     // setItemLocalStorage
     const payloadSortFilter = {
       filter:{
@@ -185,7 +191,6 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     this.emailFilter = '';
     this.statusFilter = '';
     this.basicSalaryFilter = null;
-    this.paginator.firstPage();
     this.pageSize = 10;
     this.sortValue = null;
     this.sort.sort({ id: '', start: 'asc', disableClear: false });
