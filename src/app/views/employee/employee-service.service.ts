@@ -60,16 +60,16 @@ export class EmployeeServiceService {
     let dataFilter = [];
     dataFilter = this.dataEmployeeAll.filter(item => {
       // Check user_name
-      const userNameMatch = payload.user_name ? item.user_name.trim().includes(payload.user_name.trim()) : true;
+      const userNameMatch = payload?.user_name ? item.user_name.trim().includes(payload?.user_name.trim()) : true;
   
       // Check email
-      const emailMatch = payload.email ? item.email.trim().includes(payload.email.trim()) : true;
+      const emailMatch = payload?.email ? item.email.trim().includes(payload?.email.trim()) : true;
   
       // Check status
-      const statusMatch = payload.status ? item.status === payload.status : true;
+      const statusMatch = payload?.status ? item.status === payload?.status : true;
   
       // Check basic_salary
-      const basicSalaryMatch = payload.basic_salary ? item.basic_salary === payload.basic_salary : true;
+      const basicSalaryMatch = payload?.basic_salary ? item.basic_salary === payload?.basic_salary : true;
   
       // Return true if all conditions match
       return userNameMatch && emailMatch && statusMatch && basicSalaryMatch;

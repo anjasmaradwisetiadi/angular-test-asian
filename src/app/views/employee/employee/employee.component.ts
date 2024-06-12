@@ -41,7 +41,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   pageSize = 10;
   lengthData = 0;
   sortValue = {};
-  isReset = false;
+  isSorting = false;
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
@@ -158,14 +158,15 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     this.getData();
   }
 
-  applyFilterOn(){
-    //********* */ end reset pagination
+  applyFilterOn(){  
+    let payload;
+    //********* */ reset pagination
     this.dataSource.data = [];
     this.paginator.length = 0;
     this.paginator.firstPage();
     this.pageSize = 10;
-        //********* */ reset pagination
-    const payload = {
+    //********* */ end reset pagination
+    payload = {
       user_name: this.usernameFilter,
       email: this.emailFilter,
       status: this.statusFilter,
@@ -190,7 +191,6 @@ export class EmployeeComponent implements OnInit, OnDestroy {
       sorting: this.sortValue
     }
     localStorage.setItem('sort_and_filter', JSON.stringify(payloadSortFilter))
-    this.isReset = false;
   }
 
   applyReset(){
@@ -202,13 +202,11 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     this.pageSize = 10;
     this.sortValue = null;
     this.sort.sort({ id: '', start: 'asc', disableClear: false });
-    this.isReset = true;
     this.applyFilterOn();
   }
 
   sortData($event: Sort){
     this.sortValue = $event.active ? { [$event.active]: $event.direction ? $event.direction : `asc` } : null;
-    this.applyFilterOn()
     this.paginator.pageIndex = 0;
   }
 
