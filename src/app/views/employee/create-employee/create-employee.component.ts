@@ -7,6 +7,9 @@ import { EmployeeServiceService } from '../employee-service.service';
 import { dataDummyGroup } from 'src/assets/data/dataEmployee';
 import Swal from 'sweetalert2';
 import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc.js';
+import * as timezone from 'dayjs/plugin/timezone.js';
+import { utilize } from 'src/app/utilize';
 
 
 const today = new Date();
@@ -25,7 +28,7 @@ export class CreateEmployeeComponent implements OnInit {
       private employeeService :EmployeeServiceService, 
       private route:ActivatedRoute,
   ) { }
-
+  
   createOrEditEmployee = this.fb.group({
     id: [''],
     user_name: ['', [Validators.required]],
@@ -80,8 +83,9 @@ export class CreateEmployeeComponent implements OnInit {
     if(from === 'create'){
       this.useDate = this.maxDate;
     } else {
-      const convertToEpoch:any =  this.createOrEditEmployee.controls.birth_date.value ? this.createOrEditEmployee.controls.birth_date.value: '';
-      const dateTime = convertToEpoch?.toString().length === 10 ? convertToEpoch * 1000 : convertToEpoch;
+      const convertToEpoch:any =  this.createOrEditEmployee.controls.birth_date.value ? Number(this.createOrEditEmployee.controls.birth_date.value): '';
+
+      const dateTime = utilize.convertTimeDate(convertToEpoch);
       const data = dayjs(dateTime)
       const day = Number(data.format('D'));
       const month = (Number(data.format('M')) - 1);
@@ -136,12 +140,16 @@ export class CreateEmployeeComponent implements OnInit {
   onSubmit(){
     let employeeSave;
     const timestampId = new Date().getTime();
-    const dataTime = dayjs(this.useDate).unix();
+    dayjs.extend(utc);
+    dayjs.extend(timezone);
+
     if(this.nameRoute === 'edit'){
+      const dataTime = dayjs(this.useDate).valueOf();
       this.createOrEditEmployee.patchValue({
         birth_date: String(dataTime)
       })
     } else {
+      const dataTime = dayjs(this.useDate).valueOf();
       this.createOrEditEmployee.patchValue({
         id:String(timestampId),
         birth_date: String(dataTime)
