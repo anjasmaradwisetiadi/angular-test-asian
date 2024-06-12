@@ -1,8 +1,8 @@
 # Angular-Test-Asian
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.13.
-youcan look for review app on thi link [angular-test-asian](https://landing-page-54d28.web.app/)  
-when you use app link angular-test-asian always use original base url => https://landing-page-54d28.web.app/
+youcan look for review app on thi link [angular-test-asian](https://auth-implement-a6db8.firebaseapp.com/)  
+when you use app link angular-test-asian always use original base url => https://auth-implement-a6db8.firebaseapp.com/
 
 Main technology using for this app: 
 ```
