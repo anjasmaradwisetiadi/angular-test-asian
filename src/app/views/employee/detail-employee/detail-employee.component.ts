@@ -6,6 +6,7 @@ import { Location } from '@angular/common'
 import { utilize } from 'src/app/utilize';
 import Swal from 'sweetalert2';
 import { SubSink } from 'subsink';
+import { DashboardComponent } from '../../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-detail-employee',
