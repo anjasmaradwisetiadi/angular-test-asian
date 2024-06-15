@@ -10,6 +10,12 @@ Angular 14
 Bootstrap 5
 Angular Material
 ```
+email and password
+```
+email:anjasmara@gmail.com
+password: anjasmara
+```
+
 ## To Run the FrontEnd
 
 First, run the development local serve:
