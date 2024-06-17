@@ -68,6 +68,12 @@ th {
         width : 40px;
         height : 40px;
     }
+
+    .table-responsive-style{
+        width: 100%;
+        overflow-x: scroll;
+        display: inline-block;
+    }
     
 }
 
@@ -109,6 +115,4 @@ td:nth-child(5), th:nth-child(5) {
 .table-responsive-style{
     width: 100%;
     overflow-x: scroll;
-    display: inline-block;
-
 }
